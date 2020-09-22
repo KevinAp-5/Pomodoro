@@ -22,3 +22,10 @@ def get_argv():
             pass
     return config
 
+def notification(config):
+    for title, time in config.items():
+        x = title.replace('-', ' ')
+        y = f'{time} minutes is counting'
+        system(f'notify-send "{x}" "{y}"')  # Pop-up notification
+        sleep(time*60)  # it's sleep... duh
+
