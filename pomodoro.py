@@ -16,11 +16,9 @@ def get_argv():
     config = dict(zip_longest(times, conf, fillvalue=0))
     
     if 0 in config.values():
-        try:
-            config.pop(list(config.keys())[list(config.values()).index(0)])
-            # Remove the key if the value is 0
-        except Exception:
-            pass
+        config.pop(list(config.keys())[list(config.values()).index(0)])
+        # Remove the key if the value is 0
+
     return config
 
 def notification(config):
@@ -28,15 +26,20 @@ def notification(config):
         x = title.replace('-', ' ')
         y = f'{time} minutes is counting'
         system(f'notify-send "{x}" "{y}"')  # Pop-up notification
-        sleep(time*60)  # it's sleep... duh
+        try:
+            sleep(time*60)  # it's sleep... duh
+        except KeyboardInterrupt:
+            print("\nYour pomodoro clock isn't done.")
+            exit()
+
         try:
             playsound('notification.mp3')
         except Exception:
             raise
 
-def images():
-    pass
-
+        # Add images dos notification
+        # Salvar quantas vezes o relogio pomodoro foi concluido.
+        # Pause function
 
 if __name__ == '__main__':
     notification(get_argv())
