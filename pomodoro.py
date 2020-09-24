@@ -1,6 +1,7 @@
 from sys import argv
 from os import system
 from time import sleep, time
+from playsound import playsound
 from itertools import zip_longest
 
 def get_argv():
@@ -13,7 +14,7 @@ def get_argv():
     conf = (float(x) for x in conf)  # Int the conf items(argv)
     times = 'work-time', 'short-break', 'long-break'
     config = dict(zip_longest(times, conf, fillvalue=0))
-
+    
     if 0 in config.values():
         try:
             config.pop(list(config.keys())[list(config.values()).index(0)])
@@ -28,4 +29,15 @@ def notification(config):
         y = f'{time} minutes is counting'
         system(f'notify-send "{x}" "{y}"')  # Pop-up notification
         sleep(time*60)  # it's sleep... duh
+        try:
+            playsound('notification.mp3')
+        except Exception:
+            raise
+
+def images():
+    pass
+
+
+if __name__ == '__main__':
+    notification(get_argv())
 
