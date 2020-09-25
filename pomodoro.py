@@ -75,6 +75,15 @@ def read():
         for x in counter:
             print(x)
 
+def file_clean(filename):  # Just an easy way to delete all file content
+    try:
+        with open(filename, 'r+') as my_file:
+            my_file.truncate(0)
+    except:
+        raise
+    else:
+        print('The file is clean.')
+
 if __name__ == '__main__':
     read()
 
