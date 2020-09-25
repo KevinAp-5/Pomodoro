@@ -39,17 +39,14 @@ def notification(config):
         except Exception:
             pass
 
-        # Add images dos notification
-        # Salvar quantas vezes o relogio pomodoro foi concluido.
+        # Add images to notification
         # Pause function
 
 def read():
-    """Conta as vezes que o pomodoro clock foi concluído."""
     # Pegar o número atual salvo no arquivo, soma-lo a mais um e escrever
     # Tomar cuidado para n escrever a mesma coisa varias vezes no arquivo
-    # Comi o cu de quem ta lendo
 
-    # Le o arquivo e se não existir, ele cria
+    # Read the file, if the file does not exist it will be created
     try:
         with open('.pomodororc', 'r') as pomodororc:  # Tenta ler o arquívo
             counter = pomodororc.readlines()
