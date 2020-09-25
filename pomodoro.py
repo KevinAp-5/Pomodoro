@@ -43,10 +43,38 @@ def notification(config):
         # Salvar quantas vezes o relogio pomodoro foi concluido.
         # Pause function
 
-def pomodoro_count():
+def read():
     """Conta as vezes que o pomodoro clock foi concluído."""
-    pass
+    # Pegar o número atual salvo no arquivo, soma-lo a mais um e escrever
+    # Tomar cuidado para n escrever a mesma coisa varias vezes no arquivo
+    # Comi o cu de quem ta lendo
+
+    # Le o arquivo e se não existir, ele cria
+    try:
+        with open('.pomodororc', 'r') as pomodororc:  # Tenta ler o arquívo
+            counter = pomodororc.readlines()
+    except FileNotFoundError:  # Se o arquívo não for encontrado, será criado
+        print('File not found. The file will be created.')
+        try:
+            with open('.pomodororc', 'w+') as pomodororc:  # Just read it lol.
+                pomodororc.write(f'completed times: 0')
+        except Exception as error:
+            print(f'occurred an error trying to create the file: {error}')
+        else:
+            print('the completed times counter is saved in .pomodororc')
+    else:
+        print('Printing pomodororc content:')
+
+        if counter == []:
+            print('The file is empty.')
+            return False
+
+        if len(counter) > 1:
+            counter = counter[0]
+
+        for x in counter:
+            print(x)
 
 if __name__ == '__main__':
-    notification(get_argv())
+    read()
 
