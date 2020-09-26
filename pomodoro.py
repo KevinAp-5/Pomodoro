@@ -54,6 +54,15 @@ def read():
             return False
         return counter
 
+def creater():
+    try:
+        with open('.pomodororc', 'w+') as pomodororc:
+            pomodororc.write(f'completed times: 0\n')
+    except Exception as error:
+        print(f'occurred an error trying to create the file: {error}')
+    else:
+        print('the completed times counter is saved in .pomodororc')
+
 def file_clean(filename):  # Just an easy way to delete all file content
     try:
         with open(filename, 'r+') as my_file:
