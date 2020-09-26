@@ -19,7 +19,7 @@ def get_argv():
     
     if 0 in config.values():
         config.pop(list(config.keys())[list(config.values()).index(0)])
-        # Remove the key if the value is 0
+        # Remove the key if the value of the key is 0
     return config
 
 def notification(config):
@@ -43,34 +43,16 @@ def notification(config):
         # Pause function
 
 def read():
-    # Pegar o número atual salvo no arquivo, soma-lo a mais um e escrever
-    # Tomar cuidado para n escrever a mesma coisa varias vezes no arquivo
-
-    # Read the file, if the file does not exist it will be created
     try:
-        with open('.pomodororc', 'r') as pomodororc:  # Tenta ler o arquívo
+        with open('.pomodororc', 'r') as pomodororc:
             counter = pomodororc.readlines()
-    except FileNotFoundError:  # Se o arquívo não for encontrado, será criado
-        print('File not found. The file will be created.')
-        try:
-            with open('.pomodororc', 'w+') as pomodororc:  # Just read it lol.
-                pomodororc.write(f'completed times: 0')
-        except Exception as error:
-            print(f'occurred an error trying to create the file: {error}')
-        else:
-            print('the completed times counter is saved in .pomodororc')
+    except FileNotFoundError:
+        creater()
     else:
-        print('Printing pomodororc content:')
-
         if counter == []:
-            print('The file is empty.')
+            creater()
             return False
-
-        if len(counter) > 1:
-            counter = counter[0]
-
-        for x in counter:
-            print(x)
+        return counter
 
 def file_clean(filename):  # Just an easy way to delete all file content
     try:
@@ -82,5 +64,6 @@ def file_clean(filename):  # Just an easy way to delete all file content
         print('The file is clean.')
 
 if __name__ == '__main__':
-    read()
+    a = '.pomodororc'
+    write()
 
