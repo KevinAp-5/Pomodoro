@@ -63,6 +63,26 @@ def creater():
     else:
         print('the completed times counter is saved in .pomodororc')
 
+def write():
+    try:
+        counter = read()
+    except:
+        raise
+    else:
+        if counter is False:
+            counter = read()
+        counter = (''.join(counter)).split(':')
+        counter[1] = str(int((counter[1].replace('\n', '')).strip()) + 1)
+        counter = ': '.join(counter)
+
+        try:
+            with open('.pomodororc', 'w+') as pomodororc:
+                pomodororc.writelines(counter)
+        except:
+            raise
+        else:
+            print('Your config file is up to date.')
+
 def file_clean(filename):  # Just an easy way to delete all file content
     try:
         with open(filename, 'r+') as my_file:
