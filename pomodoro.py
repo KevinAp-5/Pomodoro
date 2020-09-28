@@ -39,6 +39,10 @@ def notification(config):
         except Exception:
             pass
 
+    write()  # Pomodoro counter
+    sleep(3)
+    show_counter()
+
         # Add images to notification
         # Pause function
 
@@ -52,6 +56,9 @@ def read():
         if counter == []:
             creater()
             return False
+
+        counter = (''.join(counter)).split(':')
+        counter[1] = (counter[1].replace('\n', '')).strip()
         return counter
 
 def creater():
@@ -71,8 +78,8 @@ def write():
     else:
         if counter is False:
             counter = read()
-        counter = (''.join(counter)).split(':')
-        counter[1] = str(int((counter[1].replace('\n', '')).strip()) + 1)
+
+        counter[1] = str(int(counter[1]) + 1)
         counter = ': '.join(counter)
 
         try:
@@ -92,7 +99,23 @@ def file_clean(filename):  # Just an easy way to delete all file content
     else:
         print('The file is clean.')
 
+def show_counter():
+    counter = read()
+
+    if counter is False:
+        counter = read()
+
+    counter = counter[1]
+    if counter == '0':
+        x = 'complete it and you will see the counter in the next time.'
+        y = '-t 10000'
+        system(f'notify-send {y} "Pomodoro has been not completed yet." "{x}"')
+        return
+
+    title = f'Pomodoro has been completed'
+    desc = f"{counter} times"
+    system(f'notify-send "{title}" "{desc}"')
+
 if __name__ == '__main__':
-    a = '.pomodororc'
-    write()
+    notification(get_argv())
 
