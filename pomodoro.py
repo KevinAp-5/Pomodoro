@@ -9,6 +9,9 @@ from itertools import zip_longest
 def get_argv():
     conf = argv
     conf.pop(0)  # Remove the python file name
+    
+    if conf[0].lower() = '-t':
+        print('Pomodoro terminal mode')
 
     if len(conf) == 1: conf.append(5)
     if len(conf) == 0: return {'work-time':25, 'short-break':5}
@@ -115,6 +118,10 @@ def show_counter():
     title = f'Pomodoro has been completed'
     desc = f"{counter} times"
     system(f'notify-send "{title}" "{desc}"')
+
+#TODO adicionar o pomodoro em um terminal mode(sem ser notificação)
+#usar o figlet para mostrar o tempo
+#ctrl-c vai ser uma forma de pausar o contador
 
 if __name__ == '__main__':
     notification(get_argv())
