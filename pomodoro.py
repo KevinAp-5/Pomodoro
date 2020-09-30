@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from os import system
+from os import system, get_terminal_size
 from time import sleep, time
 from playsound import playsound
 from itertools import zip_longest
@@ -12,7 +12,6 @@ def get_argv():
 
     if len(conf) >= 1:
         if conf[0].lower() == '-t':
-            print('Pomodoro is in terminal mode.')
             conf.pop(0)
             terminal_mode = True
     else:
@@ -78,22 +77,33 @@ def execute_times(config):
     config.pop('terminal_mode')
 
     for title, time in config.items():
-        x = title.replace('-', ' ').capitalize()
-        y = f'{time} minutes is counting.'
-        print(f'it is {x}')
+        bt_title = title.replace('-', ' ').title()
 
         if terminal_mode is False:
             pass  # notification_mode will be here
         else:
+            terminal_size = get_terminal_size(0)[0]
+            if terminal_size >= 50:
+                a = f'{bt_title}'.center(50)
+                print(f'{"="*50}\n{a}\n{"="*50}')
+
             for x in range(time):
                 counter = 60
                 for x in range(60):
                     a, b = time-1, counter-1
-                    print('\r{:02d}:{:02d}'.format(a, b), flush=True, end='')
-                    sleep(1)  # Add pause function with KeyboardInterrupt
+
+                    if terminal_size >= 50:
+                        text = '{:02d}:{:02d}'.format(a, b)
+                        x = ' ' * int((25 - (len(text)/2)))
+                        text = x+text
+                    else:
+                        text = '{:02d}:{:02d}'.format(a, b)
+
+                    print(f'\r{text}', flush=True, end='')
+                    sleep(1)  # TODO Add pause function with KeyboardInterrupt
                     counter -= 1
                 time -= 1
-        print()
+        print('\n')
 
 def read():
     try:
