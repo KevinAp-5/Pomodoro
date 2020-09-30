@@ -24,18 +24,18 @@ def get_argv():
     if len(conf) == 1:
         conf.append(5)
 
-    nao_inteiros = []
+    not_int = []
     for x in conf:
         try:
             int(x)
         except Exception:
-            nao_inteiros.append(x)
+            not_int.append(x)
 
-    x = ', '.join(nao_inteiros)
-    if len(nao_inteiros) > 0:
-        raise ValueError(f'Use números inteiros! "{x}" != int')
+    x = ', '.join(not_int)
+    if len(not_int) > 0:
+        raise ValueError(f'Use int numbers! "{x}" != int')
     else:
-        del(nao_inteiros)
+        del(not_int)
 
     conf = (int(x) for x in conf)
     times = 'work-time', 'short-break', 'long-break'
@@ -48,7 +48,7 @@ def get_argv():
     config['terminal_mode'] = terminal_mode
     return config
 
-def notification(config):
+def notification(config):  # Delete it and make it only notify
     for title, time in config.items():
         x = title.replace('-', ' ').capitalize()
         y = f'{time} minutes is counting.'
