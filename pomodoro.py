@@ -12,7 +12,7 @@ def get_argv():
 
     if len(conf) >= 1:
         if conf[0].lower() == '-t':
-            print('Pomodoro terminal mode')
+            print('Pomodoro is in terminal mode.')
             conf.pop(0)
             terminal_mode = True
     else:
@@ -25,7 +25,20 @@ def get_argv():
     if len(conf) == 1:
         conf.append(5)
 
-    conf = (float(x) for x in conf)
+    nao_inteiros = []
+    for x in conf:
+        try:
+            int(x)
+        except Exception:
+            nao_inteiros.append(x)
+
+    x = ', '.join(nao_inteiros)
+    if len(nao_inteiros) > 0:
+        raise ValueError(f'Use números inteiros! "{x}" != int')
+    else:
+        del(nao_inteiros)
+
+    conf = (int(x) for x in conf)
     times = 'work-time', 'short-break', 'long-break'
     config = dict(zip_longest(times, conf, fillvalue=0))
     
@@ -59,6 +72,28 @@ def notification(config):
 
         # Add images to notification
         # Pause function
+
+def execute_times(config):
+    terminal_mode = config.get('terminal_mode')
+    config.pop('terminal_mode')
+
+    for title, time in config.items():
+        x = title.replace('-', ' ').capitalize()
+        y = f'{time} minutes is counting.'
+        print(f'it is {x}')
+
+        if terminal_mode is False:
+            pass  # notification_mode will be here
+        else:
+            for x in range(time):
+                counter = 60
+                for x in range(60):
+                    a, b = time-1, counter-1
+                    print('\r{:02d}:{:02d}'.format(a, b), flush=True, end='')
+                    sleep(1)  # Add pause function with KeyboardInterrupt
+                    counter -= 1
+                time -= 1
+        print()
 
 def read():
     try:
@@ -132,8 +167,7 @@ def show_counter():
 
 #TODO adicionar o pomodoro em um terminal mode(sem ser notificação)
 #usar o figlet para mostrar o tempo
-#ctrl-c vai ser uma forma de pausar o contador
 
 if __name__ == '__main__':
-    notification(get_argv())
+    execute_times(get_argv())
 
