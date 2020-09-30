@@ -10,11 +10,15 @@ def get_argv():
     conf = argv
     conf.pop(0)  # Remove the python file name
     
-    if conf[0].lower() = '-t':
+    if conf[0].lower() == '-t':
         print('Pomodoro terminal mode')
+        conf.pop(0)
+        terminal_mode = True
+    else:
+        terminal_mode = False
 
-    if len(conf) == 1: conf.append(5)
-    if len(conf) == 0: return {'work-time':25, 'short-break':5}
+#    if len(conf) == 1: conf.append(5)
+#    if len(conf) == 0: return {'work-time':25, 'short-break':5}
 
     conf = (float(x) for x in conf)
     times = 'work-time', 'short-break', 'long-break'
@@ -23,6 +27,8 @@ def get_argv():
     if 0 in config.values():
         config.pop(list(config.keys())[list(config.values()).index(0)])
         # Remove the key if the value of the key is 0
+
+    config['terminal_mode'] = terminal_mode
     return config
 
 def notification(config):
