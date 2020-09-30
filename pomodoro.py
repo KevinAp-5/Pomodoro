@@ -9,16 +9,21 @@ from itertools import zip_longest
 def get_argv():
     conf = argv
     conf.pop(0)  # Remove the python file name
-    
-    if conf[0].lower() == '-t':
-        print('Pomodoro terminal mode')
-        conf.pop(0)
-        terminal_mode = True
+
+    if len(conf) >= 1:
+        if conf[0].lower() == '-t':
+            print('Pomodoro terminal mode')
+            conf.pop(0)
+            terminal_mode = True
     else:
         terminal_mode = False
 
-#    if len(conf) == 1: conf.append(5)
-#    if len(conf) == 0: return {'work-time':25, 'short-break':5}
+    if len(conf) == 0:
+        conf.append(25)
+        conf.append(5)
+
+    if len(conf) == 1:
+        conf.append(5)
 
     conf = (float(x) for x in conf)
     times = 'work-time', 'short-break', 'long-break'
