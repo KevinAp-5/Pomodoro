@@ -62,23 +62,31 @@ def execute_times(config):
                 a = f'{bt_title}'.center(50)
                 print(f'{"="*50}\n{a}\n{"="*50}')
 
-            for x in range(time):
+            for x in range(time):  # Range of the minutes
                 counter = 60
-                for x in range(60):
+                for x in range(60):  # Range of the seconds
                     a, b = time-1, counter-1
 
-                    if terminal_size >= 50:
+                    if terminal_size >= 50:  # Just a beautiful print
                         text = '{:02d}:{:02d}'.format(a, b)
                         x = ' ' * int((25 - (len(text)/2)))
                         text = x+text
                     else:
                         text = '{:02d}:{:02d}'.format(a, b)
 
-                    print(f'\r{text}', flush=True, end='')
-                    sleep(1)  # TODO Add pause function with KeyboardInterrupt
+                    print(f'\r{text}\t', flush=True, end='')  # Clock
+                    try:
+                        sleep(1)
+                    except KeyboardInterrupt:
+                        keyboardinterrupt()
+                    except Exception:
+                        raise
+
                     counter -= 1
                 time -= 1
         print('\n')
+        # TODO add a song when time is done
+        # TODO add the pomodoro counter
 
 def keyboardinterrupt():
     while True:
