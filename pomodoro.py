@@ -48,30 +48,6 @@ def get_argv():
     config['terminal_mode'] = terminal_mode
     return config
 
-def notification(config):  # Delete it and make it only notify
-    for title, time in config.items():
-        x = title.replace('-', ' ').capitalize()
-        y = f'{time} minutes is counting.'
-        system(f'notify-send "It is {x}!" "{y}"')  # Pop-up notification
-
-        try:
-            sleep(time*60)  # it's sleep... duh
-        except KeyboardInterrupt:
-            print("\nYour pomodoro clock isn't done.")
-            exit()
-
-        try:
-            playsound('sound.mp3')
-        except Exception:
-            pass
-
-    write()  # Pomodoro counter
-    sleep(3)
-    show_counter()
-
-        # Add images to notification
-        # Pause function
-
 def execute_times(config):
     terminal_mode = config.get('terminal_mode')
     config.pop('terminal_mode')
