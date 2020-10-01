@@ -10,12 +10,11 @@ def get_argv():
     conf = argv
     conf.pop(0)  # Remove the python file name
 
+    terminal_mode = False
     if len(conf) >= 1:
-        if conf[0].lower() == '-t':
+        if '-t' in conf[0]:
             conf.pop(0)
             terminal_mode = True
-    else:
-        terminal_mode = False
 
     if len(conf) == 0:
         conf.append(25)
@@ -40,7 +39,7 @@ def get_argv():
     conf = (int(x) for x in conf)
     times = 'work-time', 'short-break', 'long-break'
     config = dict(zip_longest(times, conf, fillvalue=0))
-    
+
     if 0 in config.values():
         config.pop(list(config.keys())[list(config.values()).index(0)])
         # Remove the key if the value of the key is 0
