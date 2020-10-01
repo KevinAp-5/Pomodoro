@@ -80,6 +80,29 @@ def execute_times(config):
                 time -= 1
         print('\n')
 
+def keyboardinterrupt():
+    while True:
+        try:
+            x = input('\nDo you want to continue? [Y/n]\n>>> ')
+        except KeyboardInterrupt:
+            exit()
+        else:
+            x = (x.strip().lower())[0]
+
+        if x == 'y':
+            print('Pomodoro will continue...')
+            break
+        if x == 'n':
+            a = input('Exiting, press [N] cancel.').strip().lower()
+            if 'n' in a:
+                continue
+            else:
+                print('Pomodoro is closing...')
+                exit()
+        else:
+            print('Invalid answer! Use Yes or No.')
+            continue
+
 def read():
     try:
         with open('.pomodororc', 'r') as pomodororc:
