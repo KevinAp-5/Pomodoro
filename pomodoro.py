@@ -2,9 +2,9 @@
 
 from sys import argv
 from os import system, get_terminal_size
-from time import sleep, time
-from playsound import playsound
+from time import sleep
 from itertools import zip_longest
+
 
 def get_argv():
     conf = argv
@@ -46,6 +46,7 @@ def get_argv():
 
     config['terminal_mode'] = terminal_mode
     return config
+
 
 def execute_times(config):
     terminal_mode = config.get('terminal_mode')
@@ -97,6 +98,7 @@ def execute_times(config):
         # TODO add a song when time is done
         # TODO add the pomodoro counter
 
+
 def keyboardinterrupt():
     while True:
         try:
@@ -120,6 +122,7 @@ def keyboardinterrupt():
             print('Invalid answer! Use Yes or No.')
             continue
 
+
 def read():
     try:
         with open('.pomodororc', 'r') as pomodororc:
@@ -135,19 +138,21 @@ def read():
         counter[1] = (counter[1].replace('\n', '')).strip()
         return counter
 
+
 def creater():
     try:
         with open('.pomodororc', 'w+') as pomodororc:
-            pomodororc.write(f'completed times: 0\n')
+            pomodororc.write('completed times: 0\n')
     except Exception as error:
         print(f'occurred an error trying to create the file: {error}')
     else:
         print('the completed times counter is saved in .pomodororc')
 
+
 def write():
     try:
         counter = read()
-    except:
+    except Exception:
         raise
     else:
         if counter is False:
@@ -159,22 +164,21 @@ def write():
         try:
             with open('.pomodororc', 'w+') as pomodororc:
                 pomodororc.writelines(counter)
-        except:
+        except Exception:
             raise
         else:
             print('Your config file is up to date.')
+
 
 def file_clean(filename):  # Just an easy way to delete all file content
     try:
         with open(filename, 'r+') as my_file:
             my_file.truncate(0)
-    except:
+    except Exception:
         raise
     else:
         print('The file is clean.')
 
-#TODO adicionar o pomodoro em um terminal mode(sem ser notificação)
-#usar o figlet para mostrar o tempo
 
 if __name__ == '__main__':
     execute_times(get_argv())
