@@ -55,7 +55,16 @@ def execute_times(config):
         bt_title = title.replace('-', ' ').title()
 
         if terminal_mode is False:
-            pass  # notification_mode will be here
+            y = f'{time} minutes is counting.'
+            system(f'notify-send "{bt_title}" "{y}"')
+
+            try:
+                sleep(time*60)  # "Convert" minutes into seconds
+            except KeyboardInterrupt:
+                keyboardinterrupt()
+            except Exception:
+                raise
+
         else:
             terminal_size = get_terminal_size(0)[0]
             if terminal_size >= 50:
