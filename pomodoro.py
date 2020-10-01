@@ -173,26 +173,8 @@ def file_clean(filename):  # Just an easy way to delete all file content
     else:
         print('The file is clean.')
 
-def show_counter():
-    counter = read()
-
-    if counter is False:
-        counter = read()
-
-    counter = counter[1]
-    if counter == '0':
-        x = 'complete it and you will see the counter in the next time.'
-        y = '-t 10000'
-        system(f'notify-send {y} "Pomodoro has been not completed yet." "{x}"')
-        return
-
-    title = f'Pomodoro has been completed'
-    desc = f"{counter} times"
-    system(f'notify-send "{title}" "{desc}"')
-
 #TODO adicionar o pomodoro em um terminal mode(sem ser notificação)
 #usar o figlet para mostrar o tempo
 
 if __name__ == '__main__':
     execute_times(get_argv())
-
