@@ -180,8 +180,6 @@ def write():
                 pomodororc.writelines(counter)
         except Exception:
             raise
-        else:
-            print('Your config file is up to date.')
 
 
 def file_clean(filename):  # Just an easy way to delete all file content
