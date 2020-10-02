@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from os import system, get_terminal_size
 from time import sleep
+from playsound import playsound
 from itertools import zip_longest
+from os import system, get_terminal_size
 
 
 def get_argv():
@@ -94,6 +95,10 @@ def execute_times(config):
 
                     counter -= 1
                 time -= 1
+        try:
+            playsound('sound.mp3')
+        except Exception:
+            pass
         print('\n')
     write()
     counter = read()
@@ -164,7 +169,7 @@ def write():
     except Exception:
         raise
     else:
-        if counter is False:
+        if counter is False or counter is None:
             counter = read()
 
         counter[1] = str(int(counter[1]) + 1)
@@ -188,6 +193,9 @@ def file_clean(filename):  # Just an easy way to delete all file content
     else:
         print('The file is clean.')
 
+
+# TODO adicionar uma notificação no terminal mode, assim fundindo terminal mode
+# e notify mode
 
 if __name__ == '__main__':
     execute_times(get_argv())
