@@ -95,8 +95,17 @@ def execute_times(config):
                     counter -= 1
                 time -= 1
         print('\n')
-        # TODO add a song when time is done
-        # TODO add the pomodoro counter
+    write()
+    counter = read()
+
+    if counter is False:
+        counter = read()
+
+    counter = counter[1]
+    if counter == '1':
+        print('Pomodoro is done for the first time!')
+    else:
+        print(f'Pomodoro was completed {counter} times')
 
 
 def keyboardinterrupt():
