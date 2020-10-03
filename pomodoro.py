@@ -11,11 +11,11 @@ def get_argv():
     conf = argv
     conf.pop(0)  # Remove the python file name
 
-    terminal_mode = False
+    notification_mode = False
     if len(conf) >= 1:
-        if '-t' in conf[0]:
+        if '-n' in conf[0]:
             conf.pop(0)
-            terminal_mode = True
+            notification_mode = True
 
     if len(conf) == 0:
         conf.append(25)
@@ -45,18 +45,18 @@ def get_argv():
         config.pop(list(config.keys())[list(config.values()).index(0)])
         # Remove the key if the value of the key is 0
 
-    config['terminal_mode'] = terminal_mode
+    config['notification_mode'] = notification_mode
     return config
 
 
 def execute_times(config):
-    terminal_mode = config.get('terminal_mode')
-    config.pop('terminal_mode')
+    notification_mode = config.get('notification_mode')
+    config.pop('notification_mode')
 
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
-        if terminal_mode is False:
+        if notification_mode is True:
             y = f'{time} minutes is counting.'
             system(f'notify-send "{bt_title}" "{y}"')
 
@@ -103,6 +103,8 @@ def execute_times(config):
         except Exception:
             pass
         print('\n')
+        sleep(3)
+
     write()
     counter = read()
 
