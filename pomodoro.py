@@ -69,21 +69,24 @@ def execute_times(config):
 
         else:
             terminal_size = get_terminal_size(0)[0]
+
             if terminal_size >= 50:
                 a = f'{bt_title}'.center(50)
                 print(f'{"="*50}\n{a}\n{"="*50}')
 
+            system(f'notify-send "{bt_title}" "{time} minutes is counting."')
             for x in range(time):  # Range of the minutes
                 counter = 60
                 for x in range(60):  # Range of the seconds
                     a, b = time-1, counter-1
 
-                    if terminal_size >= 50:  # Just a beautiful print
+                    if terminal_size >= 50:  # Will only print the beautiful
+                        # print if the terminal size is > than 50
                         text = '{:02d}:{:02d}'.format(a, b)
                         x = ' ' * int((25 - (len(text)/2)))
                         text = x+text
                     else:
-                        text = '{:02d}:{:02d}'.format(a, b)
+                        text = '{}: {:02d}:{:02d}'.format(bt_title, a, b)
 
                     print(f'\r{text}\t', flush=True, end='')  # Clock
                     try:
