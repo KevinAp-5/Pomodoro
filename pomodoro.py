@@ -201,4 +201,14 @@ def file_clean(filename):  # Just an easy way to delete all file content
 # e notify mode
 
 if __name__ == '__main__':
-    execute_times(get_argv())
+    while True:
+        execute_times(get_argv())
+        x = input('Do you want to continue pomodoro? [y/n]\n>>>').strip()[0]
+        if x == 'y':
+            continue
+        if x == 'n':
+            exit()
+        else:
+            print('invalid answer... exiting')
+            exit()
+
