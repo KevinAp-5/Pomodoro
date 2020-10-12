@@ -22,7 +22,10 @@ def get_argv():
         conf.append(5)
 
     if len(conf) == 1:
-        conf.append(5)
+        if isinstance(conf[0], int):
+            conf.append(5)
+        else:
+            raise TypeError('You have to input int numbers')
 
     not_int = []
     for x in conf:
