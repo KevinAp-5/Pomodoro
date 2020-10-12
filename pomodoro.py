@@ -53,8 +53,11 @@ def get_argv():
 
 
 def execute_times(config):
-    notification_mode = config.get('notification_mode')
-    config.pop('notification_mode')
+    try:
+        notification_mode = config.get('notification_mode')
+        config.pop('notification_mode')
+    except Exception:
+        pass
 
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
