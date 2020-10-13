@@ -72,7 +72,6 @@ def execute_times(config):
                 keyboardinterrupt()
             except Exception:
                 raise
-
         else:
             terminal_size = get_terminal_size(0)[0]
 
@@ -203,13 +202,11 @@ def file_clean(filename):  # Just an easy way to delete all file content
         print('The file is clean.')
 
 
-# TODO adicionar uma notificação no terminal mode, assim fundindo terminal mode
-# e notify mode
-
 if __name__ == '__main__':
+    bad_variable_name = get_argv()
     while True:
-        execute_times(get_argv())
-        x = input('Do you want to continue pomodoro? [y/n]\n>>>').strip()[0]
+        execute_times(bad_variable_name)
+        x = input('Do you want to continue pomodoro? [y/n]\n>> ').strip()[0]
         if x == 'y':
             continue
         if x == 'n':
