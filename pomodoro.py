@@ -210,10 +210,10 @@ if __name__ == '__main__':
     bad_variable_name = get_argv()
     while True:
         execute_times(bad_variable_name)
-        x = input('Do you want to continue pomodoro? [y/n]\n>> ').strip()[0]
-        if x == 'y':
+        x = input('Do you want to continue? [y/n]\n>> ').strip().lower()
+        if 'y' in x:
             continue
-        if x == 'n':
+        if 'n' in x:
             exit()
         else:
             print('invalid answer... exiting')
