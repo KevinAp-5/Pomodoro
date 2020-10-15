@@ -170,7 +170,16 @@ def read():
 def creater():
     try:
         with open('.pomodororc', 'w+') as pomodororc:
-            pomodororc.write('completed times: 0\n')
+            write_me = ['completed times: 0', 'time worked: 00',
+                    'time rested: 00']
+            counter = 0
+            for x in write_me:
+                if counter % 1 == 0:
+                    write_me.insert(counter, '\n')
+                counter += 1
+            print(write_me)
+            exit()
+            pomodororc.writelines(write_me)
     except Exception as error:
         print(f'occurred an error trying to create the file: {error}')
     else:
@@ -205,7 +214,6 @@ def file_clean(filename):  # Just an easy way to delete all file content
     else:
         print('The file is clean.')
 
-
 if __name__ == '__main__':
     bad_variable_name = get_argv()
     while True:
@@ -218,4 +226,8 @@ if __name__ == '__main__':
         else:
             print('invalid answer... exiting')
             exit()
+
+# Adicionar o agrv a um arquívo e ir somando as mais vezes que o pomodoro 
+# vai se completando
+# ? mudar a função write()
 
