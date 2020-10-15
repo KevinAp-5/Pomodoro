@@ -4,7 +4,7 @@ from sys import argv
 from time import sleep
 from playsound import playsound
 from itertools import zip_longest
-from os import system, get_terminal_size
+from os import system, get_terminal_size, path
 
 
 def get_argv():
@@ -106,7 +106,11 @@ def execute_times(config):
         try:
             playsound('sound.mp3')
         except Exception:
-            pass
+            try:
+                playsound(path.expanduser('~/python/Pomodoro/sound.mp3'))
+            except Exception:
+                print('move or copy Pomodoro/sound.mp3 to /usr/local/bin')
+
         print('\n')
         sleep(3)
 
