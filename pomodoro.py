@@ -170,8 +170,10 @@ def read():
 def creater():
     try:
         with open('.pomodororc', 'w+') as pomodororc:
-            write_me = ['completed times: 0', 'time worked: 00',
-                    'time rested: 00']
+            x = 'time rested: 00'
+            write_me = ['completed times: 0', 'time worked: 00', x]
+            del(x)
+
             counter = 0
             for x in write_me:
                 if counter % 1 == 0:
@@ -214,6 +216,7 @@ def file_clean(filename):  # Just an easy way to delete all file content
     else:
         print('The file is clean.')
 
+
 if __name__ == '__main__':
     bad_variable_name = get_argv()
     while True:
@@ -227,7 +230,6 @@ if __name__ == '__main__':
             print('invalid answer... exiting')
             exit()
 
-# Adicionar o agrv a um arquívo e ir somando as mais vezes que o pomodoro 
+# Adicionar o agrv a um arquívo e ir somando as mais vezes que o pomodoro
 # vai se completando
 # ? mudar a função write()
-
