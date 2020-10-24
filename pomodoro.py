@@ -22,10 +22,7 @@ def get_argv():
         conf.append(5)
 
     if len(conf) == 1:
-        if isinstance(conf[0], int):
-            conf.append(5)
-        else:
-            raise TypeError('You have to input int numbers')
+        conf.append(5)
 
     not_int = []
     for x in conf:
@@ -134,14 +131,17 @@ def keyboardinterrupt():
         except KeyboardInterrupt:
             exit()
         else:
-            x = (x.strip().lower())[0]
+            try:
+                x = (x.strip().lower())[0]
+            except IndexError:
+                exit()
 
         if x == 'y':
             print('Pomodoro will continue...')
             break
-        if x == 'n':
-            a = input('Exiting, press [N] cancel.').strip().lower()
-            if 'n' in a:
+        elif x == 'n':
+            exiting = input('Exiting, press [N] cancel.').strip().lower()
+            if 'n' in exiting:
                 continue
             else:
                 print('Pomodoro is closing...')
