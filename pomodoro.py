@@ -181,8 +181,25 @@ def write(argv):
         if counter is False or counter is None:
             counter = read()
 
-        counter[1] = str(int(counter[1]) + 1)
-        counter = ': '.join(counter)
+        for x in range(len(counter)):
+            counter[x] = [x.strip() for x in counter[x].split(':')]
+
+        for x in counter:
+            x[1] = int(x[1])
+            if 'work' in x[0]:
+                x[1] += argv.get('work-time')
+            elif 'rest' in x[0]:
+                x[1] += argv.get('short-break')
+            else:
+                x[1] += 1
+
+        for x in range(len(counter)):
+            counter[x] = f'{counter[x][0]}: {counter[x][1]}'
+
+        count = 1
+        for x in range(len(counter)):  # make a function to do it
+            counter.insert(count, '\n')
+            count += 2
 
         try:
             with open('.pomodororc', 'w+') as pomodororc:
@@ -191,9 +208,9 @@ def write(argv):
             raise
 
 
-def file_clean(filename):  # Just an easy way to delete all file content
+def file_clean():  # Just an easy way to delete all file content
     try:
-        with open(filename, 'r+') as my_file:
+        with open('.pomodororc', 'r+') as my_file:
             my_file.truncate(0)
     except Exception:
         raise
@@ -205,15 +222,11 @@ if __name__ == '__main__':
     bad_variable_name = get_argv()
     while True:
         execute_times(bad_variable_name)
-        x = input('Do you want to continue? [y/n]\n>> ').strip().lower()
-        if 'y' in x:
-            continue
-        if 'n' in x:
-            exit()
-        else:
-            print('invalid answer... exiting')
-            exit()
+        keyboardinterrupt()
 
 # Adicionar o agrv a um arquívo e ir somando as mais vezes que o pomodoro
 # vai se completando
 # ? mudar a função write()
+# Se o programa for fechado enquanto algum contador está rodando, salve-o
+# total time worked
+
