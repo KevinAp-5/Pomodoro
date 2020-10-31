@@ -3,7 +3,6 @@
 from sys import argv
 from time import sleep
 from playsound import playsound
-from itertools import zip_longest
 from os import system, get_terminal_size, path
 
 
@@ -38,8 +37,8 @@ def get_argv():
         del(not_int)
 
     conf = (int(x) for x in conf)
-    times = 'work-time', 'short-break', 'long-break'
-    config = dict(zip_longest(times, conf, fillvalue=0))
+    times = 'work-time', 'short-break'
+    config = dict(zip(times, conf))
 
     if 0 in config.values():
         config.pop(list(config.keys())[list(config.values()).index(0)])
