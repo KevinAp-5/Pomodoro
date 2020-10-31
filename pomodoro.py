@@ -105,22 +105,16 @@ def execute_times(config):
             try:
                 playsound(path.expanduser('~/python/Pomodoro/sound.mp3'))
             except Exception:
-                print('move or copy Pomodoro/sound.mp3 to /usr/local/bin')
-
+                print('\nNO SOUND')
+                print('mv or cp Pomodoro/sound.mp3 to /usr/local/bin')
         print('\n')
-        sleep(3)
 
-    write()
+    write(config)
     counter = read()
 
     if counter is False:
         counter = read()
-
-    counter = counter[1]
-    if counter == '1':
-        print('Pomodoro is done for the first time!')
-    else:
-        print(f'Pomodoro was completed {counter} times')
+    print(*counter, sep='\n')
 
 
 def keyboardinterrupt():
