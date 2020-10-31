@@ -150,33 +150,29 @@ def read():
             creater()
             return False
 
-        counter = (''.join(counter)).split(':')
-        counter[1] = (counter[1].replace('\n', '')).strip()
+        counter = (''.join(counter)).split('\n')
+        try:
+            counter.remove('')
+        except Exception:
+            pass
         return counter
 
 
 def creater():
+    write_me = ['completed: 0', 'worked: 00', 'rested: 00']
+    counter = 1
+    for x in range(len(write_me)):
+        write_me.insert(counter, '\n')
+        counter += 2
+
     try:
         with open('.pomodororc', 'w+') as pomodororc:
-            x = 'time rested: 00'
-            write_me = ['completed times: 0', 'time worked: 00', x]
-            del(x)
-
-            counter = 0
-            for x in write_me:
-                if counter % 1 == 0:
-                    write_me.insert(counter, '\n')
-                counter += 1
-            print(write_me)
-            exit()
             pomodororc.writelines(write_me)
     except Exception as error:
         print(f'occurred an error trying to create the file: {error}')
-    else:
-        print('the completed times counter is saved in .pomodororc')
 
 
-def write():
+def write(argv):
     try:
         counter = read()
     except Exception:
