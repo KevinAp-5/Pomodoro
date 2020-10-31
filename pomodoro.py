@@ -133,12 +133,7 @@ def keyboardinterrupt():
             print('Pomodoro will continue...')
             break
         elif x == 'n':
-            exiting = input('Exiting, press [N] cancel.').strip().lower()
-            if 'n' in exiting:
-                continue
-            else:
-                print('Pomodoro is closing...')
-                exit()
+            exit()
         else:
             print('Invalid answer! Use Yes or No.')
             continue
