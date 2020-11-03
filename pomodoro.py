@@ -40,8 +40,8 @@ def get_argv():
     times = 'work-time', 'short-break'
     config = dict(zip(times, conf))
 
-    if 0 in config.values():
-        config.pop(list(config.keys())[list(config.values()).index(0)])
+#    if 0 in config.values():
+#        config.pop(list(config.keys())[list(config.values()).index(0)])
         # Remove the key if the value of the key is 0
 
     config['notification_mode'] = notification_mode
@@ -159,7 +159,7 @@ def read():
 
 
 def creater():
-    write_me = ['completed: 0', 'worked: 00', 'rested: 00']
+    write_me = ['completed: 0', 'worked: 00', 'rested: 00', 'total: 0']
     counter = 1
     for x in range(len(write_me)):
         write_me.insert(counter, '\n')
@@ -181,27 +181,35 @@ def write(argv):
         if counter is False or counter is None:
             counter = read()
 
-        for x in range(len(counter)):
+        for x in range(len(counter)):  # splits the strings
             counter[x] = [x.strip() for x in counter[x].split(':')]
 
+        if 'total' not in counter[-1][0]:  # add the total if not found
+            counter.append(['total', 0])
+
+        a = 0
         for x in counter:
             x[1] = int(x[1])
             if 'work' in x[0]:
                 x[1] += argv.get('work-time')
+                a += x[1]
             elif 'rest' in x[0]:
                 x[1] += argv.get('short-break')
-            else:
+                a += x[1]
+            elif 'completed' in x[0]:
                 x[1] += 1
+            elif 'total' in x[0]:
+                x[1] = a
 
         for x in range(len(counter)):
-            counter[x] = f'{counter[x][0]}: {counter[x][1]}'
+            counter[x] = f'{counter[x][0]}: {counter[x][1]}'  # join strings
 
         count = 1
         for x in range(len(counter)):  # make a function to do it
             counter.insert(count, '\n')
             count += 2
 
-        try:
+        try:  # create the image
             with open('.pomodororc', 'w+') as pomodororc:
                 pomodororc.writelines(counter)
         except Exception:
@@ -224,9 +232,5 @@ if __name__ == '__main__':
         execute_times(bad_variable_name)
         keyboardinterrupt()
 
-# Adicionar o agrv a um arquívo e ir somando as mais vezes que o pomodoro
-# vai se completando
-# ? mudar a função write()
 # Se o programa for fechado enquanto algum contador está rodando, salve-o
-# total time worked
 
