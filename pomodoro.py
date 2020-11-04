@@ -3,12 +3,12 @@
 from sys import argv
 from time import sleep
 from playsound import playsound
-from os import system, get_terminal_size, path
+from os import get_terminal_size, path
+import notify2
 
 
 def get_argv():
-    conf = argv
-    conf.pop(0)  # Remove the python file name
+    conf = argv[1:]
 
     notification_mode = False
     if len(conf) >= 1:
@@ -60,7 +60,9 @@ def execute_times(config):
 
         if notification_mode is True:
             y = f'{time} minutes is counting.'
-            system(f'notify-send "{bt_title}" "{y}"')
+            notify2.init('python')
+            n = notify2.Notification(f'notify-send "{bt_title}"', f'{y}')
+            n.show()
 
             try:
                 sleep(time*60)  # "Convert" minutes into seconds
@@ -75,7 +77,10 @@ def execute_times(config):
                 a = f'{bt_title}'.center(50)
                 print(f'{"="*50}\n{a}\n{"="*50}')
 
-            system(f'notify-send "{bt_title}" "{time} minutes is counting."')
+            notify2.init('python')
+            n = notify2.Notification(bt_title, f"{time} minutes is counting.")
+            n.show()
+
             for x in range(time):  # Range of the minutes
                 counter = 60
                 for x in range(60):  # Range of the seconds
@@ -103,7 +108,7 @@ def execute_times(config):
             playsound('sound.mp3')
         except Exception:
             try:
-                playsound(path.expanduser('~/python/Pomodoro/sound.mp3'))
+                playsound(path.expanduser('~/Pomodoro/sound.mp3'))
             except Exception:
                 print('\nNO SOUND')
                 print('mv or cp Pomodoro/sound.mp3 to /usr/local/bin')
