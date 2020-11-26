@@ -40,10 +40,6 @@ def get_argv():
     times = 'work-time', 'short-break'
     config = dict(zip(times, conf))
 
-#    if 0 in config.values():
-#        config.pop(list(config.keys())[list(config.values()).index(0)])
-        # Remove the key if the value of the key is 0
-
     config['notification_mode'] = notification_mode
     return config
 
@@ -177,6 +173,9 @@ def creater():
         print(f'occurred an error trying to create the file: {error}')
 
 
+#  Class to threat the counter
+
+
 def write(argv):
     try:
         counter = read()
@@ -192,9 +191,10 @@ def write(argv):
         if 'total' not in counter[-1][0]:  # add the total if not found
             counter.append(['total', 0])
 
+        counter = [[x[0], int(x[1])] for x in counter]
+
         a = 0
         for x in counter:
-            x[1] = int(x[1])
             if 'work' in x[0]:
                 x[1] += argv.get('work-time')
                 a += x[1]
@@ -238,4 +238,3 @@ if __name__ == '__main__':
         keyboardinterrupt()
 
 # Se o programa for fechado enquanto algum contador está rodando, salve-o
-
