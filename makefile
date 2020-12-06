@@ -1,12 +1,11 @@
-all: change_name add_exe_permission make_command send_music
+all: send_music send_file change_name add_exe_permission
 
 change_name:
-	mv pomodoro.py pomodoro
+	sudo mv /usr/local/bin/pomodoro.py /usr/local/bin/pomodoro
 add_exe_permission:
-	chmod +x pomodoro
-make_command:
-	sudo cp pomodoro /usr/local/bin/
-
+	sudo chmod +x /usr/local/bin/pomodoro
+send_file:
+	sudo cp pomodoro.py /usr/local/bin/
 send_music:
 	sudo cp sound.mp3 /usr/local/bin/
 
