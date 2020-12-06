@@ -2,21 +2,30 @@
 
 from sys import argv
 from time import sleep
-from os import get_terminal_size, path
+from os import get_terminal_size, path, system
 
-try:
-    from playsound import playsound
-except ImportError:
-    print('Install playsound to run this program')
-    print('pip3 install playsound')
-    exit()
 
-try:
-    import notify2
-except ImportError:
-    print('Install notify2 to run this program')
-    print('pip3 install notify2')
-    exit()
+def try_import_me(lib_name:str, from_lib=''):
+    try:
+        exec_me = ""
+        if from_lib != '':
+            exec_me = f'from {lib_name} import {from_lib}'
+        else:
+            exec_me = f'import {lib_name}'
+        exec(exec_me, globals())  # import the libs
+    except ImportError:
+        print(f'Install {lib_name} to run this program')
+        def install_lib():
+            permission = input('try to download it? [y/n]:').strip().lower()[0]
+            if permission == 'y':
+                system(f'pip3 install {lib_name}')  # install lib
+                print('-' * 50)
+                print('run again if successfully downloaded it.')
+            exit()
+        install_lib()
+
+try_import_me('playsound', 'playsound')
+try_import_me('notify2')
 
 
 def get_argv():
