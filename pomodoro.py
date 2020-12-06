@@ -2,9 +2,21 @@
 
 from sys import argv
 from time import sleep
-from playsound import playsound
 from os import get_terminal_size, path
-import notify2
+
+try:
+    from playsound import playsound
+except ImportError:
+    print('Install playsound to run this program')
+    print('pip3 install playsound')
+    exit()
+
+try:
+    import notify2
+except ImportError:
+    print('Install notify2 to run this program')
+    print('pip3 install notify2')
+    exit()
 
 
 def get_argv():
