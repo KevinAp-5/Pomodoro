@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from time import sleep
+from time import sleep, strftime, gmtime
 from os import get_terminal_size, path, system
 
 
@@ -20,8 +20,6 @@ def try_import_me(lib_name:str, from_lib=''):
             if permission == 'y':
                 system(f'pip3 install {lib_name}')  # install lib
                 print('-' * 50)
-                print('run again if successfully downloaded it.')
-            exit()
         install_lib()
 
 try_import_me('playsound', 'playsound')
@@ -31,11 +29,13 @@ try_import_me('notify2')
 def get_argv():
     conf = argv[1:]
 
-    notification_mode = False
+    notification_mode = True
     if len(conf) >= 1:
         if '-n' in conf[0]:
             conf.pop(0)
-            notification_mode = True
+            notification_mode = False
+        if '-i' in conf[0]:
+            return dict(notification_mode=notification_mode, Infinite=True)
 
     if len(conf) == 0:
         conf.append(25)
@@ -58,12 +58,13 @@ def get_argv():
         del(not_int)
 
     conf = (int(x) for x in conf)
-    times = 'work-time', 'short-break'
-    config = dict(zip(times, conf))
+    config = dict(zip(('work-time', 'short-break'), conf))
 
     config['notification_mode'] = notification_mode
     return config
 
+    # Função para não ter que usar conf.append() toda hora
+    # Talvez usar enum
 
 def execute_times(config):
     try:
@@ -75,52 +76,32 @@ def execute_times(config):
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
-        if notification_mode is True:
-            y = f'{time} minutes is counting.'
-            notify2.init('python')
-            n = notify2.Notification(f'notify-send "{bt_title}"', f'{y}')
-            n.show()
+        def time_counter():
+            if notification_mode is True:
+                notify2.init('python')
+                n = notify2.Notification(f'{time}:00', f'{bt_title}')
+                n.show()
 
-            try:
-                sleep(time*60)  # "Convert" minutes into seconds
-            except KeyboardInterrupt:
-                keyboardinterrupt()
-            except Exception:
-                raise
-        else:
+            print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
+            mytime = time*60
+            for x in range(mytime):
+                clock = strftime('%H:%M:%S', gmtime(mytime))
+                beauty_print(clock)
+                try:
+                    sleep(0.001)
+                except KeyboardInterrupt:
+                    keyboardinterrupt()
+                else:
+                    mytime -= 1
+
+        def beauty_print(clock):
             terminal_size = get_terminal_size(0)[0]
-
             if terminal_size >= 50:
-                a = f'{bt_title}'.center(50)
-                print(f'{"="*50}\n{a}\n{"="*50}')
+                clock = ' '*int(25 - (len(clock)/2)) + clock
+            print(f'\r{clock}', flush=True, end='')
+        time_counter()
+        print()
 
-            notify2.init('python')
-            n = notify2.Notification(bt_title, f"{time} minutes is counting.")
-            n.show()
-
-            for x in range(time):  # Range of the minutes
-                counter = 60
-                for x in range(60):  # Range of the seconds
-                    a, b = time-1, counter-1
-
-                    if terminal_size >= 50:  # Will only print the beautiful
-                        # print if the terminal size is > than 50
-                        text = '{:02d}:{:02d}'.format(a, b)
-                        x = ' ' * int((25 - (len(text)/2)))
-                        text = x+text
-                    else:
-                        text = '{}: {:02d}:{:02d}'.format(bt_title, a, b)
-
-                    print(f'\r{text}\t', flush=True, end='')  # Clock
-                    try:
-                        sleep(1)
-                    except KeyboardInterrupt:
-                        keyboardinterrupt()
-                    except Exception:
-                        raise
-
-                    counter -= 1
-                time -= 1
         try:
             playsound('sound.mp3')
         except Exception:
@@ -128,7 +109,6 @@ def execute_times(config):
                 playsound(path.expanduser('~/Pomodoro/sound.mp3'))
             except Exception:
                 print('\nNO SOUND')
-                print('mv or cp Pomodoro/sound.mp3 to /usr/local/bin')
         print('\n')
 
     write(config)
