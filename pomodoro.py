@@ -85,10 +85,10 @@ def execute_times(config):
             print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
             mytime = time*60
             for x in range(mytime):
-                clock = strftime('%H:%M:%S', gmtime(mytime))
+                clock = strftime('%H:%M:%S', gmtime(mytime-1))
                 beauty_print(clock)
                 try:
-                    sleep(0.001)
+                    sleep(1)
                 except KeyboardInterrupt:
                     keyboardinterrupt()
                 else:
@@ -100,6 +100,7 @@ def execute_times(config):
                 clock = ' '*int(25 - (len(clock)/2)) + clock
             print(f'\r{clock}', flush=True, end='')
         time_counter()
+        exit()
         print()
 
         try:
@@ -172,9 +173,6 @@ def creater():
             pomodororc.writelines(write_me)
     except Exception as error:
         print(f'occurred an error trying to create the file: {error}')
-
-
-#  Class to threat the counter
 
 
 def write(argv):
