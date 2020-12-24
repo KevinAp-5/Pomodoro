@@ -12,3 +12,15 @@ def creator():  # if raises FileNotFoundError: create the file
     else:
         return config
 
+
+def read():
+    try:
+        with open('.pomodororc.json', 'r+') as pomodororc:
+            config = json.load(pomodororc)
+    except (FileNotFoundError, IOError):
+        return creator()
+    except Exception:
+        raise
+    else:
+        return config
+
