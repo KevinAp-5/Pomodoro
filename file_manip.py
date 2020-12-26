@@ -24,3 +24,18 @@ def read():
     else:
         return config
 
+
+def update_config(config):
+    old_config = [[key, value] for key, value in read().items()]
+
+    index = (x for x in range(0, len(old_config), +1))
+    for key, value in config.items():  # Update old_config to new values
+        x = next(index)
+        if key == old_config[x][0]:
+            old_config[x][1] += value
+
+    return dict(old_config)
+
+
+# Salvar o tempo caso raise KeyboardInterrupt
+
