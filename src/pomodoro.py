@@ -33,8 +33,6 @@ def get_argv() -> dict:
         if '-n' in conf[0]:
             conf.pop(0)
             notification_mode = False
-        if '-i' in conf[0]:
-            return dict(notification_mode=notification_mode, Infinite=True)
 
     if len(conf) == 0:
         conf.append(25)
@@ -80,12 +78,14 @@ def execute_times(config):
                 notify2.init('python')
                 n = notify2.Notification(f'{time}:00', f'{bt_title}')
                 n.show()
+            else:
+                print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
 
-            print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
             mytime = time*60
             for x in range(mytime):
                 clock = strftime('%H:%M:%S', gmtime(mytime))
-                beauty_print(clock)
+                if notification_mode is False:
+                    beauty_print(clock)
                 try:
                     sleep(1)
                 except KeyboardInterrupt:
@@ -102,12 +102,9 @@ def execute_times(config):
         print()
 
         try:
-            playsound('sound.mp3')
+            playsound(path.expanduser('../sound.mp3'))
         except Exception:
-            try:
-                playsound(path.expanduser('~/Pomodoro/sound.mp3'))
-            except Exception:
-                print('\nNO SOUND')
+            print('\nNO SOUND')
         print('\n')
     write(dict([[x, y*60] for x, y in config.items()]))
 
@@ -144,9 +141,9 @@ def keyboardinterrupt(config=dict()):
 
 
 if __name__ == '__main__':
-    bad_variable_name = get_argv()
+    _argv = get_argv()
     while True:
-        execute_times(bad_variable_name)
+        execute_times(_argv)
         keyboardinterrupt()
 
 # Se o programa for fechado enquanto algum contador está rodando, salve-o
