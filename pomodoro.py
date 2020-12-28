@@ -57,7 +57,7 @@ def get_argv() -> dict:
         del(not_int)
 
     conf = (int(x) for x in conf)
-    config = dict(zip(('work-time', 'short-break'), conf))
+    config = dict(zip(('work-time', 'rest-time'), conf))
 
     config['notification_mode'] = notification_mode
     return config
@@ -109,7 +109,8 @@ def execute_times(config):
             except Exception:
                 print('\nNO SOUND')
         print('\n')
-    write(config)
+    write(dict([[x, y*60] for x, y in config.items()]))
+
 #    counter = read()
 #    if counter is False:
 #        counter = read()
@@ -118,7 +119,7 @@ def execute_times(config):
 
 def keyboardinterrupt(config=dict()):
     def write_exit():
-        if config != {}:
+        if config != dict():
             write(config)
         exit()
     while True:
