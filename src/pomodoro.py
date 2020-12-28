@@ -107,11 +107,8 @@ def execute_times(config):
             print('\nNO SOUND')
         print('\n')
     write(dict([[x, y*60] for x, y in config.items()]))
-
-#    counter = read()
-#    if counter is False:
-#        counter = read()
-#    print(*counter, sep='\n')
+    for x, y in read().items():
+        print(f'{x}: {y}')
 
 
 def keyboardinterrupt(config=dict()):
@@ -142,8 +139,11 @@ def keyboardinterrupt(config=dict()):
 
 if __name__ == '__main__':
     _argv = get_argv()
+    for x, y in _argv.items():
+        if y is True:
+            print("also try '-n' function: python3 pomodoro.py -n 25 5")
+
     while True:
         execute_times(_argv)
         keyboardinterrupt()
 
-# Se o programa for fechado enquanto algum contador está rodando, salve-o
