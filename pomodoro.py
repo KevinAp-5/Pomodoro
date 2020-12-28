@@ -8,20 +8,18 @@ from file_manip import *
 
 def try_import_me(lib_name:str, from_lib=''):
     try:
-        exec_me = ""
         if from_lib != '':
-            exec_me = f'from {lib_name} import {from_lib}'
+            exec(f'from {lib_name} import {from_lib}', globals())
         else:
-            exec_me = f'import {lib_name}'
-        exec(exec_me, globals())  # import the libs
+            exec(f'import {lib_name}', globals())
+
     except ImportError:
         print(f'Install {lib_name} to run this program')
-        def install_lib():
-            permission = input('try to download it? [y/n]:').strip().lower()[0]
-            if permission == 'y':
-                system(f'pip3 install {lib_name}')  # install lib
-                print('-' * 50)
-        install_lib()
+        permission = input('try to download it? [y/n]:').strip().lower()[0]
+        if permission == 'y':
+            system(f'pip3 install {lib_name}')  # install lib
+            print('-' * 50)
+
 
 try_import_me('playsound', 'playsound')
 try_import_me('notify2')
@@ -73,7 +71,7 @@ def execute_times(config):
         config.pop('notification_mode')
     except Exception:
         pass
-
+ 
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
@@ -86,12 +84,12 @@ def execute_times(config):
             print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
             mytime = time*60
             for x in range(mytime):
-                clock = strftime('%H:%M:%S', gmtime(mytime-1))
+                clock = strftime('%H:%M:%S', gmtime(mytime))
                 beauty_print(clock)
                 try:
                     sleep(1)
                 except KeyboardInterrupt:
-                    keyboardinterrupt(dict(title=time))
+                    keyboardinterrupt({title: time*60 - mytime})
                 else:
                     mytime -= 1
 
@@ -99,7 +97,7 @@ def execute_times(config):
             terminal_size = get_terminal_size(0)[0]
             if terminal_size >= 50:
                 clock = ' '*int(25 - (len(clock)/2)) + clock
-            print(f'\r{clock}', flush=True, end='')
+            print(f'\r{clock}\t', flush=True, end='')
         time_counter()
         print()
 
@@ -111,27 +109,23 @@ def execute_times(config):
             except Exception:
                 print('\nNO SOUND')
         print('\n')
-
     write(config)
-    counter = read()
+#    counter = read()
+#    if counter is False:
+#        counter = read()
+#    print(*counter, sep='\n')
 
-    if counter is False:
-        counter = read()
-    print(*counter, sep='\n')
 
-
-def keyboardinterrupt():
-    def save():
-        with open('.pomodororc', 'r+') as configs:
-            content = [x.replace('\n', '') for x in configs.readlines()]
-            print(content)
-            configs.write_through(content)
-    save()
+def keyboardinterrupt(config=dict()):
+    def write_exit():
+        if config != {}:
+            write(config)
+        exit()
     while True:
         try:
             x = input('\nDo you want to continue? [Y/n]\n>>> ')
         except KeyboardInterrupt:
-            exit()
+            write_exit()
         else:
             try:
                 x = (x.strip().lower())[0]
@@ -142,7 +136,7 @@ def keyboardinterrupt():
             print('Pomodoro will continue...')
             break
         elif x == 'n':
-            exit()
+            write_exit()
         else:
             print('Invalid answer! Use Yes or No.')
             continue

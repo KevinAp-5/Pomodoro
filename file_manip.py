@@ -1,5 +1,6 @@
 import json
 from collections import Counter
+from time import strftime, gmtime
 
 
 def creator():  # if raises FileNotFoundError: create the file
@@ -25,17 +26,49 @@ def read():
         return config
 
 
-def update_config(config):
-    old_config = [[key, value] for key, value in read().items()]
+def update_config(config):  # Update config values and return updated
+    make_list = lambda _dict: [[x, y] for x, y in _dict.items()]
+    old_config = make_list(convert_to(read(), int))  # Get the saved config
 
-    index = (x for x in range(0, len(old_config), +1))
-    for key, value in config.items():  # Update old_config to new values
-        x = next(index)
-        if key == old_config[x][0]:
-            old_config[x][1] += value
+    config = make_list(config)
+    for x in range(len(config)):
+        if config[x][0] == 'work-time':
+            config[x][0] = 'worked'
+        if config[x][0] == 'rest-time':
+            config[x][0] = 'rested'
+    config = dict(config)
+
+    for key, value in config.items():
+        for index in range(len(old_config)):
+            if old_config[index][0] == key:
+                old_config[index][1] += value  # Updated value
 
     return dict(old_config)
 
+def convert_to(config, convert_to=str): # Convert config to str or seconds
+    if type(config) == dict:
+        config = [[key, value] for key, value in config.items()]
+    for x in range(len(config)):  # convert the minutes to seconds
+        if config[x][0] in {'worked', 'rested'}:
+            if convert_to == str:  # convert to hh:mm:ss
+                if type(config[x][1]) != str:
+                    config[x][1] = strftime('%H:%M:%S', gmtime(config[x][1]))
 
-# Salvar o tempo caso raise KeyboardInterrupt
+            elif convert_to == int:  # convert into seconds
+                try:
+                    h, m, s = config[x][1].split(':')
+                except AttributeError:
+                    pass
+                else:
+                    config[x][1] = int(h)*3600 + int(m)*60 + int(s)
+    return dict(config)
+
+
+def write(config:dict):
+    config = convert_to(update_config(config))
+    try:
+        with open('.pomodororc.json', 'w+') as pomodororc:
+            json.dump(config, pomodororc, indent=4)
+    except Exception:
+        raise
 
