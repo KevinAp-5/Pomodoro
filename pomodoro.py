@@ -28,11 +28,11 @@ try_import_me('notify2')
 def get_argv() -> dict:
     conf = argv[1:]
 
-    notification_mode = True
+    notification_mode = False
     if len(conf) >= 1:
         if '-n' in conf[0]:
             conf.pop(0)
-            notification_mode = False
+            notification_mode = True
 
     if len(conf) == 0:
         conf.append(25)
@@ -69,7 +69,11 @@ def execute_times(config):
         config.pop('notification_mode')
     except Exception:
         pass
- 
+    else:
+        for x, y in config.items():
+            x = x.replace('-', ' ')
+            print(f'{x}: {y}')
+
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
@@ -77,8 +81,14 @@ def execute_times(config):
             if notification_mode is True:
                 notify2.init('python')
                 messages = [f'{time}:00', f'{bt_title}']
-                print(*messages, sep=', ')
+
+                if bt_title == 'rest time':
+                    level = 2  # critical
+                else:
+                    level = 1  # normal
+
                 n = notify2.Notification(*messages)
+                n.set_urgency(level)
                 n.show()
             else:
                 print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
@@ -139,8 +149,5 @@ def keyboardinterrupt(config=dict()):
 
 
 if __name__ == '__main__':
-    _argv = get_argv()
-    while True:
-        execute_times(_argv)
-        keyboardinterrupt()
+    execute_times(get_argv())
 
