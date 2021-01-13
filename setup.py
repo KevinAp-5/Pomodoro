@@ -22,7 +22,7 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     packages=['Pomodoro'],
-    install_requires=['playsound', 'notify2'],
+    install_requires=['playsound', 'plyer'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Software Development :: Build Tools',

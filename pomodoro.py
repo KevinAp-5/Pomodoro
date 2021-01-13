@@ -5,11 +5,11 @@ from time import sleep, strftime, gmtime
 from os import get_terminal_size
 from file_manip import read, write
 from playsound import playsound
-from notify2 import notify2
+from plyer import notification
 
 
 def get_argv() -> dict:
-    conf = argv[1:]
+    conf = argv[1:]  # Get argv without the python file name
 
     notification_mode = False
     if len(conf) >= 1:
@@ -37,8 +37,7 @@ def get_argv() -> dict:
     else:
         del(not_int)
 
-    conf = (int(x) for x in conf)
-    config = dict(zip(('work-time', 'rest-time'), conf))
+    config = dict(zip(('work-time', 'rest-time'), [int(x) for x in conf]))
 
     config['notification_mode'] = notification_mode
     return config
@@ -63,17 +62,19 @@ def execute_times(config):
 
         def time_counter():
             if notification_mode is True:
-                notify2.init('python')
-                messages = [f'{time}:00', f'{bt_title}']
-
                 if bt_title == 'rest time':
-                    level = 2  # critical
+                    level = 15  # critical
                 else:
-                    level = 1  # normal
+                    level = 10  # normal
 
-                n = notify2.Notification(*messages)
-                n.set_urgency(level)
-                n.show()
+                notification.notify(
+                    title=f'{time}:00',
+                    message=bt_title,
+                    app_name='Pomodoro',
+                    timeout=level
+
+                )
+
             else:
                 print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
 
