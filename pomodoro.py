@@ -2,27 +2,10 @@
 
 from sys import argv
 from time import sleep, strftime, gmtime
-from os import get_terminal_size, path, system
-from file_manip import *
-
-
-def try_import_me(lib_name:str, from_lib=''):
-    try:
-        if from_lib != '':
-            exec(f'from {lib_name} import {from_lib}', globals())
-        else:
-            exec(f'import {lib_name}', globals())
-
-    except ImportError:
-        print(f'Install {lib_name} to run this program')
-        permission = input('try to download it? [y/n]:').strip().lower()[0]
-        if permission == 'y':
-            system(f'pip3 install {lib_name}')  # install lib
-            print('-' * 50)
-
-
-try_import_me('playsound', 'playsound')
-try_import_me('notify2')
+from os import get_terminal_size
+from file_manip import read, write
+from playsound import playsound
+from notify2 import notify2
 
 
 def get_argv() -> dict:
@@ -62,6 +45,7 @@ def get_argv() -> dict:
 
     # Função para não ter que usar conf.append() toda hora
     # Talvez usar enum
+
 
 def execute_times(config):
     try:
@@ -150,4 +134,3 @@ def keyboardinterrupt(config=dict()):
 
 if __name__ == '__main__':
     execute_times(get_argv())
-
