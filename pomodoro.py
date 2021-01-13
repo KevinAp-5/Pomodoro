@@ -91,7 +91,7 @@ def execute_times(config):
                     mytime -= 1
 
         def beauty_print(clock):
-            terminal_size = get_terminal_size(0)[0]
+            terminal_size = get_terminal_size()[0]
             if terminal_size >= 50:
                 clock = ' '*int(25 - (len(clock)/2)) + clock
             print(f'\r{clock}\t', flush=True, end='')
