@@ -1,5 +1,4 @@
 import json
-from collections import Counter
 from time import strftime, gmtime
 from os.path import expanduser
 
@@ -30,10 +29,13 @@ def read():
 
 
 def update_config(config):  # Update config values and return updated
-    make_list = lambda _dict: [[x, y] for x, y in _dict.items()]
+    def make_list(_dict: dict) -> list:
+        return [[x, y] for x, y in _dict.items()]
+
     old_config = make_list(convert_to(read(), int))  # Get the saved config
 
     config = make_list(config)  # dict -> list
+
     for x in range(len(config)):
         if config[x][0] == 'work-time':
             config[x][0] = 'worked'
@@ -51,7 +53,7 @@ def update_config(config):  # Update config values and return updated
     return old_config
 
 
-def convert_to(config, convert_to=str): # Convert config to str or seconds
+def convert_to(config, convert_to=str):  # Convert config to str or seconds
     if type(config) == dict:
         config = [[key, value] for key, value in config.items()]
     for x in range(len(config)):  # convert the minutes to seconds
@@ -70,11 +72,10 @@ def convert_to(config, convert_to=str): # Convert config to str or seconds
     return dict(config)
 
 
-def write(config:dict):
+def write(config: dict):
     config = convert_to(update_config(config))
     try:
         with open(json_path, 'w+') as pomodororc:
             json.dump(config, pomodororc, indent=4)
     except Exception:
         raise
-
