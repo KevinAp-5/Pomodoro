@@ -1,4 +1,6 @@
-from setuptools import setup
+#!/usr/bin/env python3
+
+from setuptools import setup, find_packages
 from os import path
 readme_file = path.join(path.dirname(path.abspath(__file__)), 'README.md')
 
@@ -21,7 +23,7 @@ setup(
     description='A simple way to use Pomodoro technique with python!',
     long_description=readme,
     long_description_content_type="text/markdown",
-    packages=['Pomodoro'],
+    packages=find_packages(),
     install_requires=['playsound', 'plyer'],
     classifiers=[
         'Development Status :: 3 - Alpha',
