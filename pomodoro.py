@@ -6,16 +6,19 @@ from os import get_terminal_size
 from file_manip import read, write
 from playsound import playsound
 from plyer import notification
+from typing import Dict, Union
+from itertools import repeat
+import contextlib
 
 
-def get_argv() -> dict:
-    conf = argv[1:]  # Get argv without the python file name
-
-    notification_mode = False
-    if len(conf) >= 1:
-        if '-n' in conf[0]:
-            conf.pop(0)
-            notification_mode = True
+def get_argv() -> Dict[str, Union[bool, int]]:
+    conf = [x.strip() for x in argv[1:]]  # Get argv stripped
+    for x in range(len(conf)):
+        if conf[x].isdigit():
+            conf[x] = int(conf[x])
+        else:  # float in a string returns false in isdigit()
+            with contextlib.suppress(ValueError):
+                conf[x] = int(float(conf[x]))
 
     if len(conf) == 0:
         conf.append(25)
