@@ -21,32 +21,43 @@ def get_argv() -> Dict[str, Union[bool, int]]:
                 conf[x] = int(float(conf[x]))
 
     if len(conf) == 0:
-        conf.append(25)
-        conf.append(5)
+        conf.append(False)
 
-    if len(conf) == 1:
-        conf.append(5)
+    default = {'notification_mode': False, 'work-time': 25, 'rest-time': 5}
 
-    not_int = []
-    for x in conf:
-        try:
-            int(x)
-        except Exception:
-            not_int.append(x)
+    if conf[0] == '-n':
+        conf[0] = True
+    elif type(conf[0]) == str:
+        raise ValueError(f"Invalid command '{conf[0]}'")
+    elif type(conf[0]) == int:
+        conf.insert(0, False)
 
-    x = ', '.join(not_int)
-    if len(not_int) > 0:
-        raise ValueError(f'Use int numbers! "{x}" != int')
-    else:
-        del(not_int)
+    def zl(a, b, fillvalue=None):
+        def get_greater(a, b):
+            if len(b) > len(a):
+                return b, a  # return the greater
+            else:  # if a is greater or is equal to b
+                return a, b
+        a, b = get_greater(a, b)  # len(a) > or == len(b)
 
-    config = dict(zip(('work-time', 'rest-time'), [int(x) for x in conf]))
+        values = []
+        counter = (x for x in range(len(a)))
+        for x in range(len(a)):
+            c = next(counter)
+            try:
+                values.append([a[c], b[c]])
+            except IndexError:
+                fill = fillvalue[c]
+                try:
+                    values.append([a[c], fill])
+                except IndexError:
+                    values.append([a[c], fill[-1]])
+        return values
 
-    config['notification_mode'] = notification_mode
+    config = dict(
+        zl(list(default.keys()), conf, fillvalue=list(default.values()))
+    )
     return config
-
-    # Função para não ter que usar conf.append() toda hora
-    # Talvez usar enum
 
 
 def execute_times(config):
@@ -57,8 +68,7 @@ def execute_times(config):
         pass
     else:
         for x, y in config.items():
-            x = x.replace('-', ' ')
-            print(f'{x}: {y}')
+            print(f'{x.replace("-", " ")}: {y}')
 
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
@@ -70,12 +80,11 @@ def execute_times(config):
                 else:
                     level = 10  # normal
 
-                notification.notify(
+                notification.notify(  # Pop up notificatin
                     title=f'{time}:00',
                     message=bt_title,
                     app_name='Pomodoro',
                     timeout=level
-
                 )
 
             else:
@@ -105,6 +114,7 @@ def execute_times(config):
             playsound('sound.mp3')
         except Exception:
             pass
+
     write(dict([[x, y*60] for x, y in config.items()]))
     for x, y in read().items():
         print(f'{x}: {y}')
