@@ -1,2 +1,5 @@
-.pomodororc.json
 __pycache__
+Pomodoro.egg-info
+build
+dist
+impplement.txt

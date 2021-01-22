@@ -79,3 +79,4 @@ def write(config: dict):
             json.dump(config, pomodororc, indent=4)
     except Exception:
         raise
+
