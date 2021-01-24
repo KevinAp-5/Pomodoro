@@ -73,20 +73,22 @@ def execute_times(config):
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
+        def notify():
+            if bt_title == 'rest time':
+                level = 15  # critical
+            else:
+                level = 10  # normal
+
+            notification.notify(  # Pop up notificatin
+                title=f'{time}:00',
+                message=bt_title,
+                app_name='Pomodoro',
+                timeout=level
+            )
+
         def time_counter():
             if notification_mode is True:
-                if bt_title == 'rest time':
-                    level = 15  # critical
-                else:
-                    level = 10  # normal
-
-                notification.notify(  # Pop up notificatin
-                    title=f'{time}:00',
-                    message=bt_title,
-                    app_name='Pomodoro',
-                    timeout=level
-                )
-
+                notify()
             else:
                 print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
 
