@@ -105,7 +105,11 @@ def execute_times(config):
                     mytime -= 1
 
         def beauty_print(clock):
-            terminal_size = get_terminal_size()[0]
+            try:
+                terminal_size = get_terminal_size()[0]
+            except OSError:  # it may rise if you're not running it on terminal
+                terminal_size = 25
+
             if terminal_size >= 50:
                 clock = ' '*int(25 - (len(clock)/2)) + clock
             print(f'\r{clock}\t', flush=True, end='')
@@ -115,10 +119,8 @@ def execute_times(config):
         try:
             playsound('sound.mp3')
         except Exception:
-            if bt_title == 'work time':
-                input(f'\n{bt_title} is done. Press enter to continue\n>> ')
-            else:
-                print()
+            notify()
+            sleep(1.5)
 
     write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
     # numbers into seconds to save it ex: 37:09
