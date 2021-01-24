@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from sys import stdout
 from time import sleep, strftime, gmtime
 from os import get_terminal_size
 from file_manip import read, write
@@ -9,7 +8,7 @@ from playsound import playsound
 from plyer import notification
 from typing import Dict, Union
 from itertools import repeat
-import contextlib
+from contextlib import suppress
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -18,7 +17,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         if conf[x].isdigit():
             conf[x] = int(conf[x])
         else:  # float in a string returns false in isdigit()
-            with contextlib.suppress(ValueError):
+            with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
 
     if len(conf) == 0:
