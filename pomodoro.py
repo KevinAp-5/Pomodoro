@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
+from sys import stdout
 from time import sleep, strftime, gmtime
 from os import get_terminal_size
 from file_manip import read, write
@@ -13,7 +14,7 @@ import contextlib
 
 def get_argv() -> Dict[str, Union[bool, int]]:
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
-    for x in range(len(conf)):
+    for x in range(len(conf)):  # will convert the strings to numbers
         if conf[x].isdigit():
             conf[x] = int(conf[x])
         else:  # float in a string returns false in isdigit()
@@ -21,7 +22,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
                 conf[x] = int(float(conf[x]))
 
     if len(conf) == 0:
-        conf.append(False)
+        conf.insert(0, False)
 
     default = {'notification_mode': False, 'work-time': 25, 'rest-time': 5}
 
@@ -42,7 +43,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
         values = []
         counter = (x for x in range(len(a)))
-        for x in range(len(a)):
+        for x in range(len(a)):  # zipping
             c = next(counter)
             try:
                 values.append([a[c], b[c]])
@@ -113,9 +114,14 @@ def execute_times(config):
         try:
             playsound('sound.mp3')
         except Exception:
-            pass
+            if bt_title == 'work time':
+                input(f'\n{bt_title} is done. Press enter to continue\n>> ')
+            else:
+                print()
 
-    write(dict([[x, y*60] for x, y in config.items()]))
+    write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
+    # numbers into seconds to save it ex: 37:09
+
     for x, y in read().items():
         print(f'{x}: {y}')
 
@@ -148,4 +154,3 @@ def keyboardinterrupt(config=dict()):
 
 if __name__ == '__main__':
     execute_times(get_argv())
-
