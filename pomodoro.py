@@ -2,9 +2,9 @@
 
 from sys import argv
 from time import sleep, strftime, gmtime
-from os import get_terminal_size
+from os import get_terminal_size, path
 from file_manip import read, write
-from playsound import playsound
+from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
 from itertools import repeat
@@ -81,7 +81,7 @@ def execute_times(config):
 
             notification.notify(  # Pop up notificatin
                 title=f'{time}:00',
-                message=bt_title,
+                message=f'Pomodoro Clock: {bt_title}',
                 app_name='Pomodoro',
                 timeout=level
             )
@@ -117,10 +117,15 @@ def execute_times(config):
         print()
 
         try:
-            playsound('sound.mp3')
-        except Exception:
-            notify()
-            sleep(1.5)
+            # Get the path of where the python script is running in
+            _path = '/'.join(path.realpath(__file__).split('/')[:-1])
+            playsound(f'{_path}/sound.mp3')
+        except PlaysoundException:
+            pass
+        finally:
+            print()
+            notify()  # replace this line with "pass" with you don't want
+            # the notification's pop-up
 
     write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
     # numbers into seconds to save it ex: 37:09
@@ -134,6 +139,7 @@ def keyboardinterrupt(config=dict()):
         if config != dict():
             write(config)
         exit()
+
     while True:
         try:
             x = input('\nDo you want to continue? [Y/n]\n>>> ')
