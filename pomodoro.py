@@ -70,6 +70,9 @@ def execute_times(config):
         for x, y in config.items():
             print(f'{x.replace("-", " ")}: {y}')
 
+    def banner(title):  # return kind of a banner
+        return f'{"="*50}\n{title.center(50)}\n{"="*50}'
+
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
@@ -80,8 +83,8 @@ def execute_times(config):
                 level = 10  # normal
 
             notification.notify(  # Pop up notificatin
-                title=f'{time}:00',
-                message=f'Pomodoro Clock: {bt_title}',
+                title=f'{bt_title} is done!',
+                message=f'Pomodoro Clock: {time}:00 was completed.',
                 app_name='Pomodoro',
                 timeout=level
             )
@@ -90,7 +93,7 @@ def execute_times(config):
             if notification_mode is True:
                 notify()
             else:
-                print(f'{"="*50}\n{bt_title.center(50)}\n{"="*50}')
+                print(banner(bt_title))
 
             mytime = time*60
             for x in range(mytime):
@@ -100,7 +103,8 @@ def execute_times(config):
                 try:
                     sleep(1)
                 except KeyboardInterrupt:
-                    keyboardinterrupt({title: time*60 - mytime})
+                    converted_to_second = {title: time * 60 - mytime}
+                    keyboardinterrupt(converted_to_second, banner(bt_title))
                 else:
                     mytime -= 1
 
@@ -126,15 +130,17 @@ def execute_times(config):
             print()
             notify()  # replace this line with "pass" with you don't want
             # the notification's pop-up
+    # out of loop
 
     write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
     # numbers into seconds to save it ex: 37:09
 
-    for x, y in read().items():
+    print(f"{'-'*10}\nTotalTime\n{'-'*10}")
+    for x, y in read().items():  # print the total time
         print(f'{x}: {y}')
 
 
-def keyboardinterrupt(config=dict()):
+def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
     def write_exit():
         if config != dict():
             write(config)
@@ -159,6 +165,11 @@ def keyboardinterrupt(config=dict()):
         else:
             print('Invalid answer! Use Yes or No.')
             continue
+
+    if banner:
+        print('\n', banner)
+    else:
+        print()
 
 
 if __name__ == '__main__':
