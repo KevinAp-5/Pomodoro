@@ -135,7 +135,7 @@ def execute_times(config):
     write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
     # numbers into seconds to save it ex: 37:09
 
-    print(f"{'-'*10}\nTotalTime\n{'-'*10}")
+    print(f"{'-'*10}\nTotal Time\n{'-'*10}")
     for x, y in read().items():  # print the total time
         print(f'{x}: {y}')
 
@@ -167,7 +167,7 @@ def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
             continue
 
     if banner:
-        print('\n', banner)
+        print('\n', banner, sep='')
     else:
         print()
 
