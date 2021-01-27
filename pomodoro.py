@@ -43,15 +43,15 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         values = []
         counter = (x for x in range(len(a)))
         for x in range(len(a)):  # zipping
-            c = next(counter)
+            index = next(counter)
             try:
-                values.append([a[c], b[c]])
+                values.append([a[index], b[index]])
             except IndexError:
-                fill = fillvalue[c]
+                fill = fillvalue[index]
                 try:
-                    values.append([a[c], fill])
+                    values.append([a[index], fill])
                 except IndexError:
-                    values.append([a[c], fill[-1]])
+                    values.append([a[index], fill[-1]])
         return values
 
     config = dict(
@@ -62,8 +62,8 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
 def execute_times(config):
     def clocked(time):
-        """Retorna um relógio formatado baseado no tempo em segundos
-        fornecido
+        """
+        Retorna um relógio formatado baseado no tempo em segundos fornecido
         :param time: seconds
         :type time: int
 
