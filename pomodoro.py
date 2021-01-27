@@ -61,6 +61,17 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
 
 def execute_times(config):
+    def clocked(time):
+        """Retorna um relógio formatado baseado no tempo em segundos
+        fornecido
+        :param time: seconds
+        :type time: int
+
+        :return: retorna um relógio formatado
+        :rtype: str
+        """
+        return str(strftime('%H:%M:%S', gmtime(int(time))))
+
     try:
         notification_mode = config.get('notification_mode')
         config.pop('notification_mode')
@@ -68,7 +79,7 @@ def execute_times(config):
         pass
     else:
         for x, y in config.items():
-            print(f'{x.replace("-", " ")}: {y}')
+            print(f'{x.replace("-", " ")}: {clocked(y*60)}')
 
     def banner(title):  # return kind of a banner
         return f'{"="*50}\n{title.center(50)}\n{"="*50}'
@@ -97,7 +108,8 @@ def execute_times(config):
 
             mytime = time*60
             for x in range(mytime):
-                clock = strftime('%H:%M:%S', gmtime(mytime))
+                x += 1
+                clock = clocked(mytime-1)
                 if notification_mode is False:
                     beauty_print(clock)
                 try:
