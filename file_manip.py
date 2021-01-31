@@ -31,7 +31,10 @@ def reset():
 def read() -> Dict:
     try:
         with open(json_path, 'r+') as pomodororc:
-            config = json.load(pomodororc)
+            try:
+                config = json.load(pomodororc)
+            except Exception:
+                config = creator()
     except (FileNotFoundError, IOError):
         return creator()
     except Exception:
