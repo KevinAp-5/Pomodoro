@@ -10,7 +10,7 @@ def creator() -> Dict:  # if raises FileNotFoundError: create the file
     config = dict(worked=0, rested=0, total=0)
     try:
         with open(json_path, 'w+') as pomodororc:
-            json.dump(config, pomodororc, indent=4)
+            json.dump(to_fixed(config), pomodororc, indent=4)
     except Exception:
         raise
     else:
@@ -43,13 +43,14 @@ def read() -> Dict:
         return config
 
 
-def update_config(config):  # Update config values and return updated
-    def make_list(_dict: dict) -> list:
-        return [[x, y] for x, y in _dict.items()]
+def _make_list(_dict: dict) -> List:
+    return [[x, y] for x, y in _dict.items()]
 
-    old_config = make_list(convert_to(read(), int))  # Get the saved config
 
-    config = make_list(config)  # dict -> list
+def update_config(config) -> Dict:  # Update config values and return updated
+    old_config = _make_list(to_fixed(read(), int))  # Get the saved config
+
+    config = _make_list(config)  # dict -> list
 
     for x in range(len(config)):
         if config[x][0] == 'work-time':
@@ -68,9 +69,9 @@ def update_config(config):  # Update config values and return updated
     return old_config
 
 
-def convert_to(config, convert_to=str):  # Convert config to str or seconds
+def to_fixed(config, convert_to=str):  # Convert config to str or seconds
     if type(config) == dict:
-        config = [[key, value] for key, value in config.items()]
+        config = _make_list(config)
     for x in range(len(config)):  # convert the minutes to seconds
         if config[x][0] in {'worked', 'rested', 'total'}:
             if convert_to == str:  # convert to hh:mm:ss
@@ -88,7 +89,7 @@ def convert_to(config, convert_to=str):  # Convert config to str or seconds
 
 
 def write(config: dict):
-    config = convert_to(update_config(config))
+    config = to_fixed(update_config(config))
     try:
         with open(json_path, 'w+') as pomodororc:
             json.dump(config, pomodororc, indent=4)
