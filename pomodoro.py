@@ -3,7 +3,7 @@
 from sys import argv
 from time import sleep, strftime, gmtime
 from os import get_terminal_size, path
-from file_manip import read, write
+from file_manip import read, write, reset, show
 from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
@@ -27,6 +27,12 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
     if conf[0] == '-n':
         conf[0] = True
+    elif conf[0] == 'reset':
+        reset()
+        exit()
+    elif conf[0] == 'show':
+        show()
+        exit()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
     elif type(conf[0]) == int:
@@ -38,7 +44,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
                 return b, a  # return the greater
             else:  # if a is greater or is equal to b
                 return a, b
-        a, b = get_greater(a, b)  # len(a) > or == len(b)
+        a, b = get_greater(a, b)
 
         values = []
         counter = (x for x in range(len(a)))
@@ -143,6 +149,7 @@ def execute_times(config):
             notify()  # replace this line with "pass" with you don't want
             # the notification's pop-up
         write({f'{title}': time*60})  # write the config numbers seconnds
+        show()
 
 
 
