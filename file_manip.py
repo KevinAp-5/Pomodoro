@@ -96,3 +96,8 @@ def write(config: dict):
     except Exception:
         raise
 
+
+def show():
+    print(f"{'-'*10}\nTotal Time\n{'-'*10}")
+    for x, y in read().items():  # print the total time
+        print(f'{x}: {y}')
