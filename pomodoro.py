@@ -142,14 +142,8 @@ def execute_times(config):
             print()
             notify()  # replace this line with "pass" with you don't want
             # the notification's pop-up
-    # out of loop
+        write({f'{title}': time*60})  # write the config numbers seconnds
 
-    write(dict([[x, y*60] for x, y in config.items()]))  # convert the config
-    # numbers into seconds to save it ex: 37:09
-
-    print(f"{'-'*10}\nTotal Time\n{'-'*10}")
-    for x, y in read().items():  # print the total time
-        print(f'{x}: {y}')
 
 
 def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
