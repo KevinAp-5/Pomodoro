@@ -1,11 +1,12 @@
 import json
 from time import strftime, gmtime
 from os.path import expanduser
+from typing import Dict, List
 
 json_path = expanduser('~/.pomodororc.json')
 
 
-def creator():  # if raises FileNotFoundError: create the file
+def creator() -> Dict:  # if raises FileNotFoundError: create the file
     config = dict(worked=0, rested=0, total=0)
     try:
         with open(json_path, 'w+') as pomodororc:
@@ -16,7 +17,18 @@ def creator():  # if raises FileNotFoundError: create the file
         return config
 
 
-def read():
+def reset():
+    """ Clean all the pomodororc content """
+    try:
+        with open(json_path, 'r+') as pomodororc:
+            pomodororc.truncate(0)
+    except Exception:
+        raise
+    else:
+        creator()
+
+
+def read() -> Dict:
     try:
         with open(json_path, 'r+') as pomodororc:
             config = json.load(pomodororc)
