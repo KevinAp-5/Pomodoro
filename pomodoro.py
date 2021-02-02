@@ -17,7 +17,7 @@ def check_upgrade():
     C = '\033[1;37m'
     G = '\033[1;32m'
 
-    print(f'{G}Checando por atualizacoes... {C}')
+    print(f'{G}Checando por atualizacoes...')
     run(['git', 'pull'])
 
     system('clear')
@@ -163,7 +163,7 @@ def execute_times(config):
             notify()  # replace this line with "pass" with you don't want
             # the notification's pop-up
         write({f'{title}': time*60})  # write the config numbers seconnds
-        show()
+    show() # print the time saved of pomodororc
 
 
 
