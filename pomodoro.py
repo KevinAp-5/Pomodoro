@@ -2,13 +2,25 @@
 
 from sys import argv
 from time import sleep, strftime, gmtime
-from os import get_terminal_size, path
+from os import get_terminal_size, path, system
 from file_manip import read, write, reset, show
 from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
 from itertools import repeat
 from contextlib import suppress
+from subprocess import run
+
+
+def check_upgrade():
+    system('clear')
+    C = '\033[1;37m'
+    G = '\033[1;32m'
+
+    print(f'{G}Checando por atualizacoes... {C}')
+    run(['git', 'pull'])
+
+    system('clear')
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -33,6 +45,8 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     elif conf[0] == 'show':
         show()
         exit()
+    elif conf[0] in {'upgrade', 'update'}:
+        check_upgrade()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
     elif type(conf[0]) == int:
