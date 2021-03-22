@@ -1,7 +1,11 @@
 import json
-from time import strftime, gmtime
+from time import strftime, gmtime, sleep
+from os import path
 from os.path import expanduser
 from typing import Dict, List
+from subprocess import run
+from os import system
+
 
 json_path = expanduser('~/.pomodororc.json')
 
@@ -101,3 +105,10 @@ def show():
     print(f"{'-'*10}\nTotal Time\n{'-'*10}")
     for x, y in read().items():  # print the total time
         print(f'{x}: {y}')
+
+
+
+def where_ami() -> str:
+    """Return the path of where the python script is running in"""
+    return '/'.join(path.realpath(__file__).split('/')[:-1])
+
