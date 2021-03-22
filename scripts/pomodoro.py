@@ -143,9 +143,8 @@ def execute_times(config):
         time_counter()
         print()
 
-        path_running = where_ami()
         try:
-            playsound(f'{path_running}/sound.mp3')
+            playsound(f'{where_ami()}/../sounds/sound.mp3')
         except PlaysoundException:
             pass
         finally:

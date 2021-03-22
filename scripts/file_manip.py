@@ -112,3 +112,7 @@ def where_ami() -> str:
     """Return the path of where the python script is running in"""
     return '/'.join(path.realpath(__file__).split('/')[:-1])
 
+
+if __name__ == '__main__':
+    print(where_ami())
+
