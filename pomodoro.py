@@ -3,7 +3,7 @@
 from sys import argv
 from time import sleep, strftime, gmtime
 from os import get_terminal_size, path, system
-from file_manip import read, write, reset, show
+from file_manip import read, write, reset, show, where_ami
 from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
@@ -11,16 +11,6 @@ from itertools import repeat
 from contextlib import suppress
 from subprocess import run
 
-
-def check_upgrade():
-    system('clear')
-    C = '\033[1;37m'
-    G = '\033[1;32m'
-
-    print(f'{G}Checando por atualizacoes...')
-    run(['git', 'pull'])
-
-    system('clear')
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -47,6 +37,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         exit()
     elif conf[0] in {'upgrade', 'update'}:
         check_upgrade()
+        exit()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
     elif type(conf[0]) == int:
@@ -152,10 +143,9 @@ def execute_times(config):
         time_counter()
         print()
 
+        path_running = where_ami()
         try:
-            # Get the path of where the python script is running in
-            _path = '/'.join(path.realpath(__file__).split('/')[:-1])
-            playsound(f'{_path}/sound.mp3')
+            playsound(f'{path_running}/sound.mp3')
         except PlaysoundException:
             pass
         finally:
@@ -164,7 +154,6 @@ def execute_times(config):
             # the notification's pop-up
         write({f'{title}': time*60})  # write the config numbers seconnds
     show() # print the time saved of pomodororc
-
 
 
 def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
