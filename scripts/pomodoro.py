@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from sys import argv
+from sys import argv, platform
 from time import sleep, strftime, gmtime
 from os import get_terminal_size
-from file_manip import write, reset, show, where_ami
+from file_manip import write, reset, show, whereami
 from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
@@ -24,8 +24,8 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
     default = {'notification_mode': False, 'work-time': 25, 'rest-time': 5}
 
-    if conf[0] == '-n':
-        conf[0] = True
+    if conf[0] == '-nn':  # No notification mode
+        conf[0] = False
     elif conf[0] == 'reset':
         reset()
         exit()
@@ -92,17 +92,15 @@ def execute_times(config):
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
-        def notify():
+        def notify(timeout_time=10):
             if bt_title == 'rest time':
-                level = 15  # critical
-            else:
-                level = 10  # normal
+                timeout_time = 15  # critical
 
             notification.notify(  # Pop up notificatin
                 title=f'{bt_title} is done!',
                 message=f'Pomodoro Clock: {time}:00 was completed.',
                 app_name='Pomodoro',
-                timeout=level
+                timeout=timeout_time
             )
 
         def time_counter():
@@ -138,13 +136,16 @@ def execute_times(config):
         print()
 
         try:
-            playsound(f'{where_ami()}/../sounds/sound.mp3')
+            if platform == 'win32':
+                playsound(whereami(2)+'\\sounds\\sound.mp3')
+            else:
+                playsound(whereami(1)+'/sounds/sound.mp3')
         except PlaysoundException:
-            pass
-        finally:
             print()
-            notify()  # replace this line with "pass" with you don't want
-            # the notification's pop-up
+            notify(timeout_time=15)
+        else:
+            print()
+            notify()  # replace with 'pass' to no notification
         write({f'{title}': time*60})  # write the config numbers seconnds
 
 
@@ -156,19 +157,19 @@ def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
 
     while True:
         try:
-            x = input('\nDo you want to continue? [Y/n]\n>>> ')
+            exiting = input('\nDo you want to continue? [Y/n]\n>>> ')
         except KeyboardInterrupt:
             write_exit()
         else:
             try:
-                x = (x.strip().lower())[0]
+                exiting = (exiting.strip().lower())[0]
             except IndexError:
                 exit()
 
-        if x == 'y':
+        if exiting == 'y':
             print('Pomodoro will continue...')
             break
-        elif x == 'n':
+        elif exiting == 'n':
             write_exit()
         else:
             print('Invalid answer! Use Yes or No.')
