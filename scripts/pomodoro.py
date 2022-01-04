@@ -22,7 +22,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     if len(conf) == 0:
         conf.insert(0, False)
 
-    default = {'notification_mode': False, 'work-time': 25, 'rest-time': 5}
+    default = {'notification_mode': True, 'work-time': 25, 'rest-time': 5}
 
     if conf[0] == '-nn':  # No notification mode
         conf[0] = False
