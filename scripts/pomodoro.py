@@ -2,15 +2,12 @@
 
 from sys import argv
 from time import sleep, strftime, gmtime
-from os import get_terminal_size, path, system
-from file_manip import read, write, reset, show, where_ami
+from os import get_terminal_size
+from file_manip import write, reset, show, where_ami
 from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
-from itertools import repeat
 from contextlib import suppress
-from subprocess import run
-
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -34,9 +31,6 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         exit()
     elif conf[0] == 'show':
         show()
-        exit()
-    elif conf[0] in {'upgrade', 'update'}:
-        check_upgrade()
         exit()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
@@ -152,7 +146,6 @@ def execute_times(config):
             notify()  # replace this line with "pass" with you don't want
             # the notification's pop-up
         write({f'{title}': time*60})  # write the config numbers seconnds
-    show() # print the time saved of pomodororc
 
 
 def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
