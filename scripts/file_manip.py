@@ -3,6 +3,7 @@ from time import strftime, gmtime
 from os import path
 from os.path import expanduser
 from typing import Dict, List
+from sys import platform
 
 
 json_path = expanduser('~/.pomodororc.json')
@@ -105,10 +106,16 @@ def show():
         print(f'{x}: {y}')
 
 
-def where_ami() -> str:
+def whereami(index=1) -> str:
     """Return the path of where the python script is running in"""
-    return '/'.join(path.realpath(__file__).split('/')[:-1])
+    try:
+        if platform == 'win32':
+            return "\\".join(path.realpath(__file__).split('\\')[:-index])
+        else:
+            return '/'.join(path.realpath(__file__).split('/')[:-index])
+    except Exception:
+        raise
 
 
 if __name__ == '__main__':
-    print(where_ami())
+    print(whereami())
