@@ -37,7 +37,21 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     elif type(conf[0]) == int:
         conf.insert(0, False)
 
-    def zl(a, b, fillvalue=None):
+    conf = conf[:5]  # To prevent a lot of random texts in argv
+
+    strings = list()
+    for x in conf[1:]:
+        if type(x) == str:
+            strings.append(x)
+
+    if len(strings) != 0:
+        strings = strings[:2]
+
+    for x in strings:
+        if x in conf:
+            conf.remove(x)
+
+    def zl(a, b, fillvalue=None):  # My zip longest
         def get_greater(a, b):
             if len(b) > len(a):
                 return b, a  # return the greater
@@ -47,6 +61,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
 
         values = []
         counter = (x for x in range(len(a)))
+
         for x in range(len(a)):  # zipping
             index = next(counter)
             try:
@@ -59,8 +74,19 @@ def get_argv() -> Dict[str, Union[bool, int]]:
                     values.append([a[index], fill[-1]])
         return values
 
+    label_keys = list()
+    if strings:
+        strings.insert(0, list(default.keys())[0])
+        label_keys = strings.copy()
+        del strings
+    else:
+        label_keys = list(default.keys()).copy()
+
+    if len(label_keys) < len(conf):
+        label_keys.append(list(default.keys())[-1])
+
     config = dict(
-        zl(list(default.keys()), conf, fillvalue=list(default.values()))
+        zl(label_keys, conf, fillvalue=list(default.values()))
     )
     return config
 
