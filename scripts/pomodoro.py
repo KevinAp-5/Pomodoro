@@ -22,7 +22,7 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     if len(conf) == 0:
         conf.insert(0, False)
 
-    default = {'notification_mode': True, 'work-time': 25, 'rest-time': 5}
+    default = {'notification_mode': True, 'work': 25, 'rest': 5}
 
     if conf[0] == '-nn':  # No notification mode
         conf[0] = False
@@ -110,7 +110,7 @@ def execute_times(config):
         pass
     else:
         for x, y in config.items():
-            print(f'{x.replace("-", " ")}: {clocked(y*60)}')
+            print(f'{x}: {clocked(y*60)}')
 
     def banner(title):  # return kind of a banner
         return f'{"="*50}\n{title.center(50)}\n{"="*50}'
