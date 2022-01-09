@@ -44,6 +44,7 @@ def read() -> Dict:
         raise
     else:
         return config
+    exit()
 
 
 def _make_list(_dict: dict) -> List:
@@ -104,6 +105,7 @@ def show():
     print(f"{'-'*10}\nTotal Time\n{'-'*10}")
     for x, y in read().items():  # print the total time
         print(f'{x}: {y}')
+    exit()
 
 
 def whereami(index=1) -> str:

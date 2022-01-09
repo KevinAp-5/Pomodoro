@@ -28,10 +28,8 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         conf[0] = False
     elif conf[0] == 'reset':
         reset()
-        exit()
     elif conf[0] == 'show':
         show()
-        exit()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
     elif type(conf[0]) == int:
