@@ -108,7 +108,7 @@ def show():
     exit()
 
 
-def whereami(index=1) -> str:
+def whereami(index=0) -> str:
     """Return the path of where the python script is running in"""
     try:
         if platform == 'win32':
