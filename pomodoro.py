@@ -161,9 +161,9 @@ def execute_times(config):
 
         try:
             if platform == 'win32':
-                playsound(whereami(2)+'\\sounds\\sound.mp3')
+                playsound(whereami(1)+'\\sounds\\sound.mp3')
             else:
-                playsound(whereami(2)+'/sounds/sound.mp3')
+                playsound(whereami(1)+'/sounds/sound.mp3')
         except PlaysoundException:
             print()
             notify(timeout_time=15)
