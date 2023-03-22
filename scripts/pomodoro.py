@@ -163,7 +163,7 @@ def execute_times(config):
             if platform == 'win32':
                 playsound(whereami(2)+'\\sounds\\sound.mp3')
             else:
-                playsound(whereami(1)+'/sounds/sound.mp3')
+                playsound(whereami(2)+'/sounds/sound.mp3')
         except PlaysoundException:
             print()
             notify(timeout_time=15)
@@ -188,7 +188,7 @@ def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
             try:
                 exiting = (exiting.strip().lower())[0]
             except IndexError:
-                exit()
+                write_exit()
 
         if exiting == 'y':
             print('Pomodoro will continue...')
