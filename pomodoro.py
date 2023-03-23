@@ -22,13 +22,9 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     if len(conf) == 0:
         conf.insert(0, False)
 
-    default = {'notification_mode': True, 'work': 25, 'rest': 5}
+    default = {'work': 25, 'rest': 5}
 
-    if conf[0] == '-nn':  # No notification mode
-        conf[0] = False
-    elif conf[0] == 'reset':
-        reset()
-    elif conf[0] == 'show':
+    if conf[0] == 'show':
         show()
     elif type(conf[0]) == str:
         raise ValueError(f"Invalid command '{conf[0]}'")
