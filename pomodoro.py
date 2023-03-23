@@ -151,35 +151,28 @@ def execute_times(config):
                 playsound(whereami(1)+'/sounds/sound.mp3')
         except PlaysoundException:
             print()
-            notify(timeout_time=15)
+            notify(bt_title, time, timeout_time=15)
         else:
             print()
-            notify()  # replace with 'pass' to no notification
-        write({f'{title}': time*60})  # write the config numbers seconnds
-
+            notify(bt_title, time)  # replace with 'pass' to no notification
 
 def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
-    def write_exit():
-        if config != dict():
-            write(config)
-        exit()
-
     while True:
         try:
             exiting = input('\nDo you want to continue? [Y/n]\n>>> ')
         except KeyboardInterrupt:
-            write_exit()
+            exit()
         else:
             try:
                 exiting = (exiting.strip().lower())[0]
             except IndexError:
-                write_exit()
+                exit()
 
         if exiting == 'y':
             print('Pomodoro will continue...')
             break
         elif exiting == 'n':
-            write_exit()
+            exit()
         else:
             print('Invalid answer! Use Yes or No.')
             continue
