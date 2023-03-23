@@ -84,57 +84,46 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     )
     return config
 
+# --------------------
+def make_clock(time):
+    """
+    Retorna um relógio formatado baseado no tempo em segundos fornecido
+    :param time: seconds
+    :type time: int
+
+    :return: retorna um relógio formatado
+    """
+    return str(strftime('%H:%M:%S', gmtime(int(time))))
+
+def banner(title):  # return kind of a banner
+    return f'{"="*50}\n{title.center(50)}\n{"="*50}'
+
+def notify(bt_title, time, timeout_time=10):
+    if bt_title == 'rest time':
+        timeout_time = 15  # critical
+
+    notification.notify(  # Pop up notification
+        title=f'{bt_title} is done!',
+        message=f'Pomodoro Clock: {time}:00 was completed.',
+        app_name='Pomodoro',
+        timeout=timeout_time
+    )
 
 def execute_times(config):
-    def clocked(time):
-        """
-        Retorna um relógio formatado baseado no tempo em segundos fornecido
-        :param time: seconds
-        :type time: int
-
-        :return: retorna um relógio formatado
-        :rtype: str
-        """
-        return str(strftime('%H:%M:%S', gmtime(int(time))))
-
-    try:
-        notification_mode = config.get('notification_mode')
-        config.pop('notification_mode')
-    except Exception:
-        pass
-    else:
-        for x, y in config.items():
-            print(f'{x}: {clocked(y*60)}')
-
-    def banner(title):  # return kind of a banner
-        return f'{"="*50}\n{title.center(50)}\n{"="*50}'
+    for x, y in config.items():
+        print(f'{x}: {make_clock(y*60)}')
 
     for title, time in config.items():
         bt_title = title.replace('-', ' ').title()
 
-        def notify(timeout_time=10):
-            if bt_title == 'rest time':
-                timeout_time = 15  # critical
-
-            notification.notify(  # Pop up notificatin
-                title=f'{bt_title} is done!',
-                message=f'Pomodoro Clock: {time}:00 was completed.',
-                app_name='Pomodoro',
-                timeout=timeout_time
-            )
-
         def time_counter():
-            if notification_mode is True:
-                notify()
-            else:
-                print(banner(bt_title))
+            print(banner(bt_title))
 
             mytime = time*60
             for x in range(mytime):
                 x += 1
-                clock = clocked(mytime-1)
-                if notification_mode is False:
-                    beauty_print(clock)
+                clock = make_clock(mytime-1)
+                beauty_print(clock)
                 try:
                     sleep(1)
                 except KeyboardInterrupt:
