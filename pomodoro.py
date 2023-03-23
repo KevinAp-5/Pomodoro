@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-from sys import argv, platform
-from time import sleep, strftime, gmtime
-from os import get_terminal_size
-from file_manip import write, reset, show, whereami
-from playsound import playsound, PlaysoundException
 from plyer import notification
 from typing import Dict, Union
+from sys import argv, platform
 from contextlib import suppress
+from os import get_terminal_size
+from time import sleep, strftime, gmtime
+from playsound import playsound, PlaysoundException
+from file_manip import write, reset, show, whereami
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -19,19 +19,9 @@ def get_argv() -> Dict[str, Union[bool, int]]:
             with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
 
-    if len(conf) == 0:
-        conf.insert(0, False)
+    conf = conf[:2]  # To prevent a lot of random texts in argv
 
     default = {'work': 25, 'rest': 5}
-
-    if conf[0] == 'show':
-        show()
-    elif type(conf[0]) == str:
-        raise ValueError(f"Invalid command '{conf[0]}'")
-    elif type(conf[0]) == int:
-        conf.insert(0, False)
-
-    conf = conf[:5]  # To prevent a lot of random texts in argv
 
     strings = list()
     for x in conf[1:]:
