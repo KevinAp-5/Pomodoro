@@ -7,7 +7,7 @@ from contextlib import suppress
 from os import get_terminal_size
 from time import sleep, strftime, gmtime
 from playsound import playsound, PlaysoundException
-from file_manip import write, reset, show, whereami
+from file_manip import whereami
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -136,9 +136,9 @@ def execute_times(config):
 
         try:
             if platform == 'win32':
-                playsound(whereami(1)+'\\sounds\\sound.mp3')
+                playsound(whereami()+'\\sounds\\sound.mp3')
             else:
-                playsound(whereami(1)+'/sounds/sound.mp3')
+                playsound(whereami()+'/sounds/sound.mp3')
         except PlaysoundException:
             print()
             notify(bt_title, time, timeout_time=15)
