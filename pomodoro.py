@@ -4,10 +4,9 @@ from plyer import notification
 from typing import Dict, Union
 from sys import argv, platform
 from contextlib import suppress
-from os import get_terminal_size
+from os import get_terminal_size, path
 from time import sleep, strftime, gmtime
 from playsound import playsound, PlaysoundException
-from file_manip import whereami
 
 
 def get_argv() -> Dict[str, Union[bool, int]]:
@@ -99,6 +98,15 @@ def notify(bt_title, time, timeout_time=10):
         timeout=timeout_time
     )
 
+def whereami(index=1) -> str:
+    """Return the path of where the python script is running in"""
+    with suppress():
+        if platform == 'win32':
+            return "\\".join(path.realpath(__file__).split('\\')[:-index])
+        else:
+            return '/'.join(path.realpath(__file__).split('/')[:-index])
+
+
 def execute_times(config):
     for x, y in config.items():
         print(f'{x}: {make_clock(y*60)}')
@@ -175,3 +183,4 @@ def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
 
 if __name__ == '__main__':
     execute_times(get_argv())
+
