@@ -8,6 +8,28 @@ from os import get_terminal_size, path
 from time import sleep, strftime, gmtime
 from playsound import playsound, PlaysoundException
 
+def zl(a, b, fillvalue=None):  # My zip longest
+    def get_greater(a, b):
+        if len(b) > len(a):
+            return b, a  # return the greater
+        else:  # if a is greater or is equal to b
+            return a, b
+    a, b = get_greater(a, b)
+
+    values = []
+    counter = (x for x in range(len(a)))
+
+    for x in range(len(a)):  # zipping
+        index = next(counter)
+        try:
+            values.append([a[index], b[index]])
+        except IndexError:
+            fill = fillvalue[index]
+            try:
+                values.append([a[index], fill])
+            except IndexError:
+                values.append([a[index], fill[-1]])
+    return values
 
 def get_argv() -> Dict[str, Union[bool, int]]:
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
@@ -33,29 +55,6 @@ def get_argv() -> Dict[str, Union[bool, int]]:
     for x in strings:
         if x in conf:
             conf.remove(x)
-
-    def zl(a, b, fillvalue=None):  # My zip longest
-        def get_greater(a, b):
-            if len(b) > len(a):
-                return b, a  # return the greater
-            else:  # if a is greater or is equal to b
-                return a, b
-        a, b = get_greater(a, b)
-
-        values = []
-        counter = (x for x in range(len(a)))
-
-        for x in range(len(a)):  # zipping
-            index = next(counter)
-            try:
-                values.append([a[index], b[index]])
-            except IndexError:
-                fill = fillvalue[index]
-                try:
-                    values.append([a[index], fill])
-                except IndexError:
-                    values.append([a[index], fill[-1]])
-        return values
 
     label_keys = list()
     if strings:
