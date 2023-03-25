@@ -31,7 +31,7 @@ def zl(a, b, fillvalue=None):  # My zip longest
                 values.append([a[index], fill[-1]])
     return values
 
-def get_argv() -> Dict[str, Union[bool, int]]:
+def get_argv() -> Dict[str, int]:
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
     for x in range(len(conf)):  # will convert the strings to numbers
         if conf[x].isdigit():
@@ -39,38 +39,13 @@ def get_argv() -> Dict[str, Union[bool, int]]:
         else:  # float in a string returns false in isdigit()
             with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
-
     conf = conf[:2]  # To prevent a lot of random texts in argv
 
     default = {'work': 25, 'rest': 5}
 
-    strings = list()
-    for x in conf[1:]:
-        if type(x) == str:
-            strings.append(x)
+    default_labels = list(default.keys()).copy()
 
-    if len(strings) != 0:
-        strings = strings[:2]
-
-    for x in strings:
-        if x in conf:
-            conf.remove(x)
-
-    label_keys = list()
-    if strings:
-        strings.insert(0, list(default.keys())[0])
-        label_keys = strings.copy()
-        del strings
-    else:
-        label_keys = list(default.keys()).copy()
-
-    if len(label_keys) < len(conf):
-        label_keys.append(list(default.keys())[-1])
-
-    config = dict(
-        zl(label_keys, conf, fillvalue=list(default.values()))
-    )
-    return config
+    return dict(zl(default_labels, conf, fillvalue=list(default.values())))
 
 # --------------------
 def make_clock(time):
