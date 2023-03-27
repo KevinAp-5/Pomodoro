@@ -80,6 +80,15 @@ def whereami(index=1) -> str:
         else:
             return '/'.join(path.realpath(__file__).split('/')[:-index])
 
+def beauty_print(clock):
+    try:
+        terminal_size = get_terminal_size()[0]
+    except OSError:  # it may rise if you're not running it on terminal
+        terminal_size = 25
+
+    if terminal_size >= 50:
+        clock = ' '*int(25 - (len(clock)/2)) + clock
+    print(f'\r{clock}\t', flush=True, end='')
 
 def execute_times(config):
     for x, y in config.items():
@@ -104,15 +113,6 @@ def execute_times(config):
                 else:
                     mytime -= 1
 
-        def beauty_print(clock):
-            try:
-                terminal_size = get_terminal_size()[0]
-            except OSError:  # it may rise if you're not running it on terminal
-                terminal_size = 25
-
-            if terminal_size >= 50:
-                clock = ' '*int(25 - (len(clock)/2)) + clock
-            print(f'\r{clock}\t', flush=True, end='')
         time_counter()
         print()
 
