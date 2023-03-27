@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from plyer import notification
-from typing import Dict, Union
+from typing import Dict
 from sys import argv, platform
 from contextlib import suppress
 from os import get_terminal_size, path
