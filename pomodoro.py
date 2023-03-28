@@ -90,30 +90,33 @@ def beauty_print(clock):
         clock = ' '*int(25 - (len(clock)/2)) + clock
     print(f'\r{clock}\t', flush=True, end='')
 
-def execute_times(config):
-    for x, y in config.items():
+def time_counter(title, time):
+    mytime = time*60
+    for seconds in range(mytime):
+        seconds += 1
+        clock = make_clock(mytime-1)
+        beauty_print(clock)
+        try:
+            sleep(1)
+        except KeyboardInterrupt:
+            converted_to_second = {title: time * 60 - mytime}
+            keyboardinterrupt(banner(bt_title(title)))
+        else:
+            mytime -= 1
+
+def bt_title(title):
+    return title.replace('-', ' ').title()
+
+def show_time(config):
+    for x, y in config.items():  # refatorar isso
         print(f'{x}: {make_clock(y*60)}')
 
+def execute_times(config):
+    show_time(config)
+
     for title, time in config.items():
-        bt_title = title.replace('-', ' ').title()
-
-        def time_counter():
-            print(banner(bt_title))
-
-            mytime = time*60
-            for x in range(mytime):
-                x += 1
-                clock = make_clock(mytime-1)
-                beauty_print(clock)
-                try:
-                    sleep(1)
-                except KeyboardInterrupt:
-                    converted_to_second = {title: time * 60 - mytime}
-                    keyboardinterrupt(converted_to_second, banner(bt_title))
-                else:
-                    mytime -= 1
-
-        time_counter()
+        print(banner(bt_title(title)))
+        time_counter(title, time)
         print()
 
         try:
