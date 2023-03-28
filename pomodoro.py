@@ -124,14 +124,12 @@ def execute_times(config):
                 playsound(whereami()+'\\sounds\\sound.mp3')
             else:
                 playsound(whereami()+'/sounds/sound.mp3')
-        except PlaysoundException:
+        except Exception:
             print()
-            notify(bt_title, time, timeout_time=15)
-        else:
-            print()
-            notify(bt_title, time)  # replace with 'pass' to no notification
+            notify(bt_title(title), time)
 
-def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
+
+def keyboardinterrupt(banner=None):  # called if user ctrl-c
     while True:
         try:
             exiting = input('\nDo you want to continue? [Y/n]\n>>> ')
@@ -156,7 +154,6 @@ def keyboardinterrupt(config=dict(), banner=None):  # called if user ctrl-c
         print('\n', banner, sep='')
     else:
         print()
-
 
 if __name__ == '__main__':
     execute_times(get_argv())
