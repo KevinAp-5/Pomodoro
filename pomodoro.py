@@ -101,6 +101,7 @@ def time_counter(title, time):
         except KeyboardInterrupt:
             converted_to_second = {title: time * 60 - mytime}
             keyboardinterrupt(banner(bt_title(title)))
+            print('\n', banner(title), sep='')
         else:
             mytime -= 1
 
@@ -149,11 +150,6 @@ def keyboardinterrupt(banner=None):  # called if user ctrl-c
         else:
             print('Invalid answer! Use Yes or No.')
             continue
-
-    if banner:
-        print('\n', banner, sep='')
-    else:
-        print()
 
 if __name__ == '__main__':
     execute_times(get_argv())
