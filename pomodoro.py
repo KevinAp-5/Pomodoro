@@ -94,20 +94,17 @@ def time_counter(title, time):
         seconds += 1
         clock = make_clock(mytime-1)
         beauty_print(clock)
+
         try:
             sleep(1)
         except KeyboardInterrupt:
-            converted_to_second = {title: time * 60 - mytime}
-            keyboardinterrupt(banner(bt_title(title)))
+            keyboardinterrupt(banner((title)))
             print('\n', banner(title), sep='')
         else:
             mytime -= 1
 
-def bt_title(title):
-    return title.replace('-', ' ').title()
-
-def show_time(config):
-    for x, y in config.items():  # refatorar isso
+def show_config(config):
+    for x, y in config.items():
         print(f'{x}: {make_clock(y*60)}')
 
 def execute_times(config):
