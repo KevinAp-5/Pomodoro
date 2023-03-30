@@ -107,23 +107,22 @@ def show_config(config):
     for x, y in config.items():
         print(f'{x}: {make_clock(y*60)}')
 
+def playbell():
+    if 'win' in platform:
+        playsound(whereami()+'\\sounds\\sound.mp3')
+    else:
+        playsound(whereami()+'/sounds/sound.mp3')
+
 def execute_times(config):
-    show_time(config)
+    show_config(config)
 
     for title, time in config.items():
-        print(banner(bt_title(title)))
+        print(banner((title)))
         time_counter(title, time)
         print()
 
-        try:
-            if platform == 'win32':
-                playsound(whereami()+'\\sounds\\sound.mp3')
-            else:
-                playsound(whereami()+'/sounds/sound.mp3')
-        except Exception:
-            print()
-            notify(bt_title(title), time)
-
+        playbell()
+        notify(title, time)
 
 def keyboardinterrupt(banner=None):  # called if user ctrl-c
     while True:
