@@ -62,19 +62,16 @@ def make_clock(time):
 def banner(title):  # return kind of a banner
     return f'{"="*50}\n{title.center(50)}\n{"="*50}'
 
-def notify(bt_title, time, timeout_time=10):
-    if bt_title == 'rest time':
-        timeout_time = 15  # critical
-
+def notify(title, time):
     notification.notify(  # Pop up notification
-        title=f'{bt_title} is done!',
-        message=f'Pomodoro Clock: {time}:00 was completed.',
+        title=f'{title} is done!',
+        message=f'{time}:00 was completed.',
         app_name='Pomodoro',
-        timeout=timeout_time
+        timeout=10
     )
 
 def whereami(index=1) -> str:
-    """Return the path of where the python script is running in"""
+    """Return the path of where the python script is running at"""
     with suppress():
         if platform == 'win32':
             return "\\".join(path.realpath(__file__).split('\\')[:-index])
