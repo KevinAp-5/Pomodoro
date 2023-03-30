@@ -8,12 +8,13 @@ from os import get_terminal_size, path
 from time import sleep, strftime, gmtime
 from playsound import playsound, PlaysoundException
 
+def get_greater(a, b):
+    if len(b) > len(a):
+        return b, a  # return the greater
+    else:  # if a is greater or is equal to b
+        return a, b
+
 def zl(a, b, fillvalue=None):  # My zip longest
-    def get_greater(a, b):
-        if len(b) > len(a):
-            return b, a  # return the greater
-        else:  # if a is greater or is equal to b
-            return a, b
     a, b = get_greater(a, b)
 
     values = []
