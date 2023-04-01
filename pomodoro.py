@@ -113,9 +113,30 @@ def playbell():
     else:
         playsound(whereami()+'/sounds/sound.mp3')
 
-def execute_times(config):
-    show_config(config)
+def keyboardinterrupt():  # called if user ctrl-c
+    while True:
+        try:
+            resume_pomodoro = input('\nDo you want to continue? [Y/n]\n>>> ')
+        except KeyboardInterrupt:
+            exit()
+        else:
+            try:
+                resume_pomodoro = (resume_pomodoro.strip().lower())[0]
+            except IndexError:
+                continue
 
+        if resume_pomodoro == 'y':
+            break
+        elif resume_pomodoro == 'n':
+            exit()
+        else:
+            print('Invalid answer! Use Yes or No.')
+            continue
+
+if __name__ == '__main__':
+    config = get_argv()
+
+    show_config(config)
     for title, time in config.items():
         print(banner((title)))
         time_counter(title, time)
@@ -123,28 +144,3 @@ def execute_times(config):
 
         playbell()
         notify(title, time)
-
-def keyboardinterrupt(banner=None):  # called if user ctrl-c
-    while True:
-        try:
-            exiting = input('\nDo you want to continue? [Y/n]\n>>> ')
-        except KeyboardInterrupt:
-            exit()
-        else:
-            try:
-                exiting = (exiting.strip().lower())[0]
-            except IndexError:
-                exit()
-
-        if exiting == 'y':
-            print('Pomodoro will continue...')
-            break
-        elif exiting == 'n':
-            exit()
-        else:
-            print('Invalid answer! Use Yes or No.')
-            continue
-
-if __name__ == '__main__':
-    execute_times(get_argv())
-
