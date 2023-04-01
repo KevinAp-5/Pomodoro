@@ -89,19 +89,19 @@ def beauty_print(clock):
     print(f'\r{clock}\t', flush=True, end='')
 
 def time_counter(title, time):
-    mytime = time*60
-    for seconds in range(mytime):
-        seconds += 1
-        clock = make_clock(mytime-1)
+    seconds = time*60
+    for second in range(seconds):
+        second += 1
+        clock = make_clock(seconds-1)
         beauty_print(clock)
 
         try:
             sleep(1)
         except KeyboardInterrupt:
-            keyboardinterrupt(banner((title)))
+            keyboardinterrupt()
             print('\n', banner(title), sep='')
         else:
-            mytime -= 1
+            seconds -= 1
 
 def show_config(config):
     for x, y in config.items():
