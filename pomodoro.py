@@ -40,10 +40,10 @@ def get_argv() -> Dict[str, int]:
         else:  # float in a string returns false in isdigit()
             with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
-    conf = conf[:2]  # To prevent a lot of random texts in argv
+    return conf[:2]  # To prevent a lot of random texts in argv
 
+def times(conf):
     default = {'work': 25, 'rest': 5}
-
     default_labels = list(default.keys()).copy()
 
     return dict(zl(default_labels, conf, fillvalue=list(default.values())))
@@ -59,7 +59,7 @@ def make_clock(time):
     """
     return str(strftime('%H:%M:%S', gmtime(int(time))))
 
-def banner(title):  # return kind of a banner
+def banner(title):  # return a banner
     return f'{"="*50}\n{title.center(50)}\n{"="*50}'
 
 def notify(title, time):
@@ -134,13 +134,13 @@ def keyboardinterrupt():  # called if user ctrl-c
             continue
 
 if __name__ == '__main__':
-    config = get_argv()
-
+    config = times(get_argv())
     show_config(config)
+
     for title, time in config.items():
         print(banner((title)))
         time_counter(title, time)
         print()
-
         playbell()
         notify(title, time)
+
