@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from plyer import notification
-from typing import Dict
 from sys import argv, platform
 from contextlib import suppress
 from os import get_terminal_size, path
@@ -10,8 +9,8 @@ from playsound import playsound, PlaysoundException
 
 def get_greater(a, b):
     if len(b) > len(a):
-        return b, a  # return the greater
-    else:  # if a is greater or is equal to b
+        return b, a
+    else:  # if 'a' is greater or equal to 'b'
         return a, b
 
 def zl(a, b, fillvalue=None):  # My zip longest
@@ -32,15 +31,17 @@ def zl(a, b, fillvalue=None):  # My zip longest
                 values.append([a[index], fill[-1]])
     return values
 
-def get_argv() -> Dict[str, int]:
+def get_argv():
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
-    for x in range(len(conf)):  # will convert the strings to numbers
+
+    # will convert the strings to numbers
+    for x in range(len(conf)):
         if conf[x].isdigit():
             conf[x] = int(conf[x])
-        else:  # float in a string returns false in isdigit()
+        else:  # float number in string format will return false in isdigit()
             with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
-    return conf[:2]  # To prevent a lot of random texts in argv
+    return conf[:2]  # prevent random texts in argv
 
 def times(conf):
     default = {'work': 25, 'rest': 5}
