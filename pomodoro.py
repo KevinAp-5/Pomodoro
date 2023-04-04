@@ -51,39 +51,29 @@ def times(conf):
 
 # --------------------
 def make_clock(time):
-    """
-    Retorna um relógio formatado baseado no tempo em segundos fornecido
-    :param time: seconds
-    :type time: int
-
-    :return: retorna um relógio formatado
-    """
-    return str(strftime('%H:%M:%S', gmtime(int(time))))
-
-def banner(title):  # return a banner
-    return f'{"="*50}\n{title.center(50)}\n{"="*50}'
+    return str(strftime('%M:%S', gmtime(int(time))))
 
 def notify(title, time):
     notification.notify(  # Pop up notification
         title=f'{title} is done!',
         message=f'{time}:00 was completed.',
         app_name='Pomodoro',
-        timeout=10
-    )
+        timeout=10)
 
 def whereami(index=1) -> str:
     """Return the path of where the python script is running at"""
     with suppress():
-        if platform == 'win32':
+        if 'win' in platform:
             return "\\".join(path.realpath(__file__).split('\\')[:-index])
         else:
             return '/'.join(path.realpath(__file__).split('/')[:-index])
 
-def beauty_print(clock):
+def return_terminal_size():
     try:
         terminal_size = get_terminal_size()[0]
     except OSError:  # it may rise if you're not running it on terminal
-        terminal_size = 25
+        terminal_size = 30
+    return terminal_size
 
     if terminal_size >= 50:
         clock = ' '*int(25 - (len(clock)/2)) + clock
