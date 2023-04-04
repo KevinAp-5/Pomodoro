@@ -100,7 +100,8 @@ def time_counter(title, time):
 
 def show_config(config):
     for x, y in config.items():
-        print(f'{x}: {make_clock(y*60)}')
+        print(f'{x.title()}: {make_clock(y*60)}', end=' ')
+    print()
 
 def playbell():
     if 'win' in platform:
@@ -108,7 +109,7 @@ def playbell():
     else:
         playsound(whereami()+'/sounds/sound.mp3')
 
-def keyboardinterrupt():  # called if user ctrl-c
+def keyboardinterrupt():
     while True:
         try:
             resume_pomodoro = input('\nDo you want to continue? [Y/n]\n>>> ')
