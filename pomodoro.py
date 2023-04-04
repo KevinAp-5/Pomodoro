@@ -75,8 +75,12 @@ def return_terminal_size():
         terminal_size = 30
     return terminal_size
 
-    if terminal_size >= 50:
-        clock = ' '*int(25 - (len(clock)/2)) + clock
+def banner(title):  # return a banner
+    size = return_terminal_size()
+    return f'{"="*size}\n{title.title().center(size)}\n{"="*size}'
+
+def beauty_print(clock):
+    clock = ' '*int((return_terminal_size()/2) - (len(clock)/2)) + clock
     print(f'\r{clock}\t', flush=True, end='')
 
 def time_counter(title, time):
