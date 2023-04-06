@@ -129,6 +129,13 @@ def keyboardinterrupt():
             print('Invalid answer! Use Yes or No.')
             continue
 
+def interval(title):
+    print(f'{title} is done!', end=' ')
+    for letter in '.'*10:
+        print(letter, end='', flush=True)
+        sleep(1)
+    print()
+
 if __name__ == '__main__':
     config = times(get_argv())
     show_config(config)
@@ -139,4 +146,5 @@ if __name__ == '__main__':
         print()
         playbell()
         notify(title, time)
+        interval(title)
 
