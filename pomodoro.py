@@ -55,7 +55,7 @@ def make_clock(time):
 
 def notify(title, time):
     notification.notify(  # Pop up notification
-        title=f'{title} is done!',
+        title=f'{title.title()} is done!',
         message=f'{time}:00 was completed.',
         app_name='Pomodoro',
         timeout=10)
@@ -84,9 +84,8 @@ def beauty_print(clock):
     print(f'\r{clock}\t', flush=True, end='')
 
 def time_counter(title, time):
-    seconds = time*60
+    seconds = (time*60) + 1
     for second in range(seconds):
-        second += 1
         clock = make_clock(seconds-1)
         beauty_print(clock)
 
@@ -133,7 +132,10 @@ def interval(title):
     print(f'{title} is done!', end=' ')
     for letter in '.'*10:
         print(letter, end='', flush=True)
-        sleep(1)
+        try:
+            sleep(1)
+        except KeyboardInterrupt:
+            break
     print()
 
 if __name__ == '__main__':
