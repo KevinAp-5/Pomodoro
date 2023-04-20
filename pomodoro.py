@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-from plyer import notification
-from sys import argv, platform
 from contextlib import suppress
-from os import get_terminal_size, path
 from time import sleep, strftime, gmtime
+from sys import argv, platform
+from os import get_terminal_size, path, system
+
+from plyer import notification
 from playsound import playsound, PlaysoundException
 
 def get_greater(a, b):

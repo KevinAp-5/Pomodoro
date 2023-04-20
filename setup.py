@@ -14,12 +14,12 @@ except ImportError:
 
 setup(
     name='Pomodoro',
-    version='1.2.0',
+    version='1.3.0',
     url='https://github.com/KevinAp-5/Pomodoro',
     license='MIT License',
     author='KevinAp-5',
-    author_email='keven.santos@protonmail.com',
-    keywords='Pomodoro pomodoro pomodoro_clock TomatoTimer python_3.6.x',
+    author_email='keven.clash3@gmail.com',
+    keywords='Pomodoro pomodoro pomodoro_clock TomatoTimer',
     description='A simple way to use Pomodoro technique with python!',
     long_description=readme,
     long_description_content_type="text/markdown",
