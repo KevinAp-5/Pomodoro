@@ -138,6 +138,14 @@ def interval(title):
             break
     print()
 
+def run_part(title, time):
+    print(banner(title))
+    time_counter(title, time)
+    print()
+    playbell()
+    notify(title, time)
+    interval(title)
+
 if __name__ == '__main__':
     config = times(get_argv())
     show_config(config)
@@ -149,4 +157,3 @@ if __name__ == '__main__':
         playbell()
         notify(title, time)
         interval(title)
-
