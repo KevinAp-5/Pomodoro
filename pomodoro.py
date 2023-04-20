@@ -146,6 +146,26 @@ def run_part(title, time):
     notify(title, time)
     interval(title)
 
+def cycle_count(config):
+    work_count = 0
+    rest_count = 0
+    mini_cycle = 0
+
+    for x in range(4):
+        if work_count == 3:
+            config['rest'] = 15
+        for title, time in config.items():
+            run_part(title, time)
+            if title == 'work':
+                work_count += 1
+            else:
+                rest_count += 1
+        mini_cycle += 1
+        print(f'{mini_cycle} sets already done', end='\n')
+        print()
+        show_config(config)
+    print('-'*50)
+
 if __name__ == '__main__':
     config = times(get_argv())
     show_config(config)
