@@ -169,11 +169,4 @@ def cycle_count(config):
 if __name__ == '__main__':
     config = times(get_argv())
     show_config(config)
-
-    for title, time in config.items():
-        print(banner((title)))
-        time_counter(title, time)
-        print()
-        playbell()
-        notify(title, time)
-        interval(title)
+    cycle_count(config)
