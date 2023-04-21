@@ -5,6 +5,7 @@ from time import sleep, strftime, gmtime
 from sys import argv, platform
 from os import get_terminal_size, path, system
 
+# Dependencies
 from plyer import notification
 from playsound import playsound, PlaysoundException
 
@@ -148,22 +149,12 @@ def run_part(title, time):
     interval(title)
 
 def cycle_count(config):
-    work_count = 0
-    rest_count = 0
-    mini_cycle = 0
-
-    for x in range(4):
-        if work_count == 3:
+    for sets in range(4):
+        if sets == 3:
             config['rest'] = 15
         for title, time in config.items():
             run_part(title, time)
-            if title == 'work':
-                work_count += 1
-            else:
-                rest_count += 1
-        mini_cycle += 1
-        print(f'{mini_cycle} sets already done', end='\n')
-        print()
+        print(f'{sets+1} sets already done')
         show_config(config)
     print('-'*50)
 
@@ -171,3 +162,4 @@ if __name__ == '__main__':
     config = times(get_argv())
     show_config(config)
     cycle_count(config)
+
