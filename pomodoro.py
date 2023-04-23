@@ -67,13 +67,6 @@ class Notify():
 def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
 
-def notify(title, time):
-    notification.notify(  # Pop up notification
-        title=f'{title.title()} is done!',
-        message=f'{time}:00 was completed.',
-        app_name='Pomodoro',
-        timeout=10)
-
 def whereami(index=1) -> str:
     """Return the path of where the python script is running at"""
     with suppress():
@@ -152,25 +145,27 @@ def interval(title):
             break
     print()
 
-def run_part(title, time):
-    print(banner(title))
-    time_counter(title, time)
-    print()
-    playbell()
-    notify(title, time)
-    interval(title)
-
-def cycle_count(config):
-    for sets in range(4):
-        show_config(config)
-        if sets == 3:
-            config['rest'] = 15
-        for title, time in config.items():
-            run_part(title, time)
-        print(f'{sets+1} sets already done')
-    print('-'*50)
-
 if __name__ == '__main__':
     config = times(get_argv())
-    cycle_count(config)
+
+    notifi = Notify()
+    for sets in range(4):
+        if sets == 3:
+            config['rest'] = 15
+        show_config(config)
+
+        if sets > 0:
+            notifi.time = config.get('rest')
+
+        for title, time in config.items():
+            print(banner(title))
+            notifi.title = title
+            time_counter(title, time)
+            print()
+            playbell()
+            interval(title)
+            print()
+            notifi.send_notification()
+        print(f'{sets+1} sets already done')
+    print('-'*50)
 
