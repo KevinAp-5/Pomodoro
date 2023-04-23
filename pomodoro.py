@@ -153,9 +153,8 @@ if __name__ == '__main__':
         if sets == 3:
             config['rest'] = 15
         show_config(config)
-        if sets > 0:
-            notifi.time = config.get('rest')
 
+        notifi.time = config.get('rest')
         for title, time in config.items():
             print(banner(title))
             notifi.title = title
