@@ -150,9 +150,10 @@ def run_part(title, time):
 
 def cycle_count(config):
     for sets in range(4):
-        show_config(config)
         if sets == 3:
             config['rest'] = 15
+
+        show_config(config)
         for title, time in config.items():
             run_part(title, time)
         print(f'{sets+1} sets already done')
@@ -161,4 +162,3 @@ def cycle_count(config):
 if __name__ == '__main__':
     config = times(get_argv())
     cycle_count(config)
-
