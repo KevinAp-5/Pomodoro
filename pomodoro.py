@@ -52,6 +52,18 @@ def times(conf):
     return dict(zl(default_labels, conf, fillvalue=list(default.values())))
 
 # --------------------
+class Notify():
+    def __init__(self, title='', time=0):
+        self.title = title.title()
+        self.time = time
+
+    def send_notification(self):
+        notification.notify(  # Pop up notification
+            title=f'{self.title.title()} is done!',
+            message=f'{self.time}:00 is about to run.',
+            app_name='Pomodoro',
+            timeout=10)
+
 def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
 
