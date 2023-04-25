@@ -17,10 +17,9 @@ def get_greater(a, b):
 
 def zl(a, b, fillvalue=None):  # My zip longest
     a, b = get_greater(a, b)
-
-    values = []
     counter = (x for x in range(len(a)))
 
+    values = []
     for x in range(len(a)):  # zipping
         index = next(counter)
         try:
@@ -47,6 +46,9 @@ def get_argv():
 
 def times(conf):
     default = {'work': 25, 'rest': 5}
+    if conf == []:
+        return default
+
     default_labels = list(default.keys()).copy()
 
     return dict(zl(default_labels, conf, fillvalue=list(default.values())))
