@@ -62,7 +62,7 @@ class Notify():
     def send_notification(self):
         notification.notify(  # Pop up notification
             title=f'{self.title.title()} is done!',
-            message=f'{self.time}:00 is about to run.',
+            message=f'{self.time}:00 minutes is about to run.',
             app_name='Pomodoro',
             timeout=10)
 
@@ -163,9 +163,9 @@ if __name__ == '__main__':
             time_counter(title, time)
             print()
             playbell()
+            notifi.send_notification()
             interval(title)
             print()
-            notifi.send_notification()
         print(f'{sets+1} sets already done')
     print('-'*50)
 
