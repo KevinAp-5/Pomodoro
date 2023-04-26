@@ -50,13 +50,12 @@ def times(conf):
         return default
 
     default_labels = list(default.keys()).copy()
-
     return dict(zl(default_labels, conf, fillvalue=list(default.values())))
 
 # --------------------
 class Notify():
     def __init__(self, title='', time=0):
-        self.title = title.title()
+        self.title = title
         self.time = time
 
     def send_notification(self):
@@ -65,6 +64,11 @@ class Notify():
             message=f'{self.time}:00 minutes is about to run.',
             app_name='Pomodoro',
             timeout=10)
+
+    def clear(self):
+        self.title = ''
+        self.time = 0
+
 
 def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
@@ -167,5 +171,6 @@ if __name__ == '__main__':
             interval(title)
             print()
         print(f'{sets+1} sets already done')
+        notifi.clear()
     print('-'*50)
 
