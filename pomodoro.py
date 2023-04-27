@@ -166,11 +166,14 @@ if __name__ == '__main__':
             notifi.title = title
             time_counter(title, time)
             print()
+
             playbell()
             notifi.send_notification()
+            notifi.time = time
+
             interval(title)
             print()
-        print(f'{sets+1} sets already done')
+        print(f'Counter: {sets+1}')
         notifi.clear()
     print('-'*50)
 
