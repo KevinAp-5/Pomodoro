@@ -3,17 +3,19 @@
 from contextlib import suppress
 from time import sleep, strftime, gmtime
 from sys import argv, platform
-from os import get_terminal_size, path, system
+from os import get_terminal_size, path
 
 # Dependencies
 from plyer import notification
-from playsound import playsound, PlaysoundException
+from playsound import playsound
+
 
 def get_greater(a, b):
     if len(b) > len(a):
         return b, a
     else:  # if 'a' is greater or equal to 'b'
         return a, b
+
 
 def zl(a, b, fillvalue=None):  # My zip longest
     a, b = get_greater(a, b)
@@ -32,6 +34,7 @@ def zl(a, b, fillvalue=None):  # My zip longest
                 values.append([a[index], fill[-1]])
     return values
 
+
 def get_argv():
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
 
@@ -42,7 +45,8 @@ def get_argv():
         else:  # float number in string format will return false in isdigit()
             with suppress(ValueError):
                 conf[x] = int(float(conf[x]))
-    return conf[:2]  # prevent random texts in argv
+    return conf[:3]  # prevent random texts in argv
+
 
 def times(conf):
     default = {'work': 25, 'rest': 5}
@@ -52,7 +56,7 @@ def times(conf):
     default_labels = list(default.keys()).copy()
     return dict(zl(default_labels, conf, fillvalue=list(default.values())))
 
-# --------------------
+
 class Notify():
     def __init__(self, title='', time=0):
         self.title = title
@@ -72,14 +76,16 @@ class Notify():
 
     def done(self):
         notification.notify(
-            title=f'Pomodoro cicle is done!',
+            title='Pomodoro cicle is done!',
             message="congratulation.",
             app_name='Pomodoro',
             timeout=10
         )
 
+
 def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
+
 
 def whereami(index=1) -> str:
     """Return the path of where the python script is running at"""
@@ -89,6 +95,7 @@ def whereami(index=1) -> str:
         else:
             return '/'.join(path.realpath(__file__).split('/')[:-index])
 
+
 def return_terminal_size():
     try:
         terminal_size = get_terminal_size()[0]
@@ -96,13 +103,16 @@ def return_terminal_size():
         terminal_size = 30
     return terminal_size
 
+
 def banner(title):  # return a banner
     size = return_terminal_size()
     return f'{"="*size}\n{title.title().center(size)}\n{"="*size}'
 
+
 def beauty_print(clock):
     clock = ' '*int((return_terminal_size()/2) - (len(clock)/2)) + clock
     print(f'\r{clock}\t', flush=True, end='')
+
 
 def time_counter(title, time):
     seconds = (time*60) + 1
@@ -119,16 +129,19 @@ def time_counter(title, time):
         else:
             seconds -= 1
 
+
 def show_config(config):
     for x, y in config.items():
         print(f'{x.title()}: {make_clock(y*60)}', end=' ')
     print()
+
 
 def playbell():
     if 'win' in platform:
         playsound(whereami()+'\\sounds\\sound.mp3')
     else:
         playsound(whereami()+'/sounds/sound.mp3')
+
 
 def keyboardinterrupt():
     while True:
@@ -152,6 +165,7 @@ def keyboardinterrupt():
             print('Invalid answer! Use Yes or No.')
             continue
 
+
 def interval(title):
     print(f'{title} is done!', end=' ')
     for letter in '.'*10:
@@ -161,6 +175,7 @@ def interval(title):
         except KeyboardInterrupt:
             break
     print()
+
 
 if __name__ == '__main__':
     config = times(get_argv())
@@ -189,10 +204,9 @@ if __name__ == '__main__':
             print()
 
         if sets == 3:
-            print(f'Pomodoro is done!')
+            print('Pomodoro is done!')
         else:
             print(f'Counter: {sets+1}')
         notifi.clear()
 
     print('-'*50)
-
