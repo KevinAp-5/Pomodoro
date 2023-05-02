@@ -113,7 +113,8 @@ def time_counter(title, time):
         try:
             sleep(1)
         except KeyboardInterrupt:
-            keyboardinterrupt()
+            if keyboardinterrupt() == 'kill':
+                break
             print('\n', banner(title), sep='')
         else:
             seconds -= 1
@@ -145,6 +146,8 @@ def keyboardinterrupt():
             break
         elif resume_pomodoro == 'n':
             exit()
+        elif resume_pomodoro == 'k':
+            return 'kill'
         else:
             print('Invalid answer! Use Yes or No.')
             continue
@@ -180,8 +183,8 @@ if __name__ == '__main__':
                 notifi.done()
             else:
                 notifi.send_notification()
-            notifi.time = time
 
+            notifi.time = time
             interval(title)
             print()
 
@@ -190,5 +193,6 @@ if __name__ == '__main__':
         else:
             print(f'Counter: {sets+1}')
         notifi.clear()
+
     print('-'*50)
 
