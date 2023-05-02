@@ -63,12 +63,20 @@ class Notify():
             title=f'{self.title.title()} is done!',
             message=f'{self.time}:00 minutes is about to run.',
             app_name='Pomodoro',
-            timeout=10)
+            timeout=10
+        )
 
     def clear(self):
         self.title = ''
         self.time = 0
 
+    def done(self):
+        notification.notify(
+            title=f'Pomodoro cicle is done!',
+            message="congratulation.",
+            app_name='Pomodoro',
+            timeout=10
+        )
 
 def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
@@ -168,12 +176,19 @@ if __name__ == '__main__':
             print()
 
             playbell()
-            notifi.send_notification()
+            if sets == 3 and title == 'rest':
+                notifi.done()
+            else:
+                notifi.send_notification()
             notifi.time = time
 
             interval(title)
             print()
-        print(f'Counter: {sets+1}')
+
+        if sets == 3:
+            print(f'Pomodoro is done!')
+        else:
+            print(f'Counter: {sets+1}')
         notifi.clear()
     print('-'*50)
 
