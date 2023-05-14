@@ -18,12 +18,8 @@ def get_greater(a, b):
 
 
 def zl(a, b, fillvalue=None):  # My zip longest
-    a, b = get_greater(a, b)
-    counter = (x for x in range(len(a)))
-
     values = []
-    for x in range(len(a)):  # zipping
-        index = next(counter)
+    for index in range(len(a)):  # zipping
         try:
             values.append([a[index], b[index]])
         except IndexError:
@@ -39,12 +35,12 @@ def get_argv():
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
 
     # will convert the strings to numbers
-    for x in range(len(conf)):
-        if conf[x].isdigit():
-            conf[x] = int(conf[x])
+    for index in range(len(conf)):
+        if conf[index].isdigit():
+            conf[index] = int(conf[index])
         else:  # float number in string format will return false in isdigit()
             with suppress(ValueError):
-                conf[x] = int(float(conf[x]))
+                conf[index] = int(float(conf[index]))
     return conf[:3]  # prevent random texts in argv
 
 
@@ -54,7 +50,8 @@ def times(conf):
         return default
 
     default_labels = list(default.keys()).copy()
-    return dict(zl(default_labels, conf, fillvalue=list(default.values())))
+    a, b = get_greater(default_labels, conf)
+    return dict(zl(a, b, fillvalue=list(default.values())))
 
 
 class Notify():
