@@ -46,6 +46,7 @@ def get_argv():
 
 def times(conf):
     default = {'work': 25, 'rest': 5}
+
     if conf == []:
         return default
 
@@ -60,6 +61,7 @@ class Notify():
         self.time = time
 
     def send_notification(self):
+        self.playbell()
         notification.notify(  # Pop up notification
             title=f'{self.title.title()} is done!',
             message=f'{self.time}:00 minutes is about to run.',
@@ -74,10 +76,16 @@ class Notify():
     def done(self):
         notification.notify(
             title='Pomodoro cicle is done!',
-            message="congratulation.",
+            message="Congratulations",
             app_name='Pomodoro',
             timeout=10
         )
+
+    def playbell(self):
+        if 'win' in platform:
+            playsound(whereami()+'\\sounds\\sound.mp3')
+        else:
+            playsound(whereami()+'/sounds/sound.mp3')
 
 
 def make_clock(time):
@@ -133,13 +141,6 @@ def show_config(config):
     print()
 
 
-def playbell():
-    if 'win' in platform:
-        playsound(whereami()+'\\sounds\\sound.mp3')
-    else:
-        playsound(whereami()+'/sounds/sound.mp3')
-
-
 def keyboardinterrupt():
     while True:
         try:
@@ -176,7 +177,6 @@ def interval(title):
 
 if __name__ == '__main__':
     config = times(get_argv())
-
     notifi = Notify()
     for sets in range(4):
         if sets == 3:
@@ -190,8 +190,7 @@ if __name__ == '__main__':
             time_counter(title, time)
             print()
 
-            playbell()
-            if sets == 3 and title == 'rest':
+            if sets == 3 and 'rest' in title:
                 notifi.done()
             else:
                 notifi.send_notification()
