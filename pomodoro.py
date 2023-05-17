@@ -45,7 +45,7 @@ def get_argv():
 
 
 def times(conf):
-    default = {'work': 25, 'rest': 5}
+    default = {'work': 25, 'rest': 5, 'long rest': 15}
 
     if conf == []:
         return default
@@ -177,6 +177,16 @@ def interval(title):
 
 if __name__ == '__main__':
     config = times(get_argv())
+
+
+    def config_extractor(config):
+        long_Config = {
+            'work': config.get('work'),
+            'long rest': config.get('long rest')
+        }
+        return long_config
+
+
     notifi = Notify()
     for sets in range(4):
         if sets == 3:
