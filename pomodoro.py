@@ -175,16 +175,20 @@ def interval(title):
     print()
 
 
+def config_extractor(config):
+    long_config = {
+        'work': config.get('work'),
+        'long rest': config.get('long rest')
+    }
+    return long_config
+
+
 if __name__ == '__main__':
     config = times(get_argv())
 
 
-    def config_extractor(config):
-        long_Config = {
-            'work': config.get('work'),
-            'long rest': config.get('long rest')
-        }
-        return long_config
+    show_config(long_config)
+    run_long_config(long_config)
 
 
     notifi = Notify()
