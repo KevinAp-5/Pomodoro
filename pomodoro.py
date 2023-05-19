@@ -69,10 +69,6 @@ class Notify():
             timeout=10
         )
 
-    def clear(self):
-        self.title = ''
-        self.time = 0
-
     def done(self):
         notification.notify(
             title='Pomodoro cicle is done!',
