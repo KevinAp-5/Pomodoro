@@ -178,6 +178,22 @@ def config_extractor(config):
     }
     return long_config
 
+class Counter():
+    def __init__(self):
+        self.counter = 0
+
+    def add(self):
+        self.counter += 1
+
+    def show(self):
+        print(f'Counter: {self.counter}')
+
+    def __repr__(self):
+        return self.counter
+
+    def __str__(self):
+        return f'Counter: {self.counter}'
+
 
 if __name__ == '__main__':
     config = times(get_argv())
