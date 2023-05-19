@@ -168,7 +168,7 @@ def interval(title):
             sleep(1)
         except KeyboardInterrupt:
             break
-    print()
+    print("\n\n")
 
 
 def config_extractor(config):
