@@ -41,7 +41,7 @@ def get_argv():
 def times(conf):
     default = {'work': 25, 'rest': 5, 'long rest': 15}
 
-    if conf == []:
+    if conf == [] or conf == list(default.values()):
         return default
 
     default_labels = list(default.keys()).copy()
