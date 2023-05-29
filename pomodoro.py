@@ -241,3 +241,6 @@ if __name__ == '__main__':
     show_config(long_config)
     run_long_config(long_config)
 
+    print('\nPomodoro is done!')
+    print('-' * 50)
+
