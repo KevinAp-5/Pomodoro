@@ -178,6 +178,7 @@ def config_extractor(config):
     }
     return long_config
 
+
 class Counter():
     def __init__(self):
         self.counter = 0
@@ -193,6 +194,21 @@ class Counter():
 
     def __str__(self):
         return f'Counter: {self.counter}'
+
+
+def run_normal_config(config):
+    notifi.time = config.get('rest')
+    for title, time in config.items():
+        print(banner(title))
+        time_counter(title, time)
+        print()
+
+        notifi.title = title
+        notifi.send_notification()
+        notifi.time = time
+        interval(title)
+    counter.add()
+    counter.show()
 
 
 if __name__ == '__main__':
@@ -229,6 +245,5 @@ if __name__ == '__main__':
             print('Pomodoro is done!')
         else:
             print(f'Counter: {sets+1}')
-        notifi.clear()
 
     print('-'*50)
