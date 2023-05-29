@@ -10,24 +10,18 @@ from plyer import notification
 from playsound import playsound
 
 
-def get_greater(a, b):
-    if len(b) > len(a):
-        return b, a
-    else:  # if 'a' is greater or equal to 'b'
-        return a, b
-
-
 def zl(a, b, fillvalue=None):  # My zip longest
     values = []
-    for index in range(len(a)):  # zipping
+
+    for index, item in enumerate(a):
         try:
-            values.append([a[index], b[index]])
-        except IndexError:
+            values.append([item, b[index]])
+        except Exception:
             fill = fillvalue[index]
             try:
-                values.append([a[index], fill])
+                values.append([item, fill])
             except IndexError:
-                values.append([a[index], fill[-1]])
+                values.append(item, fill[-1])
     return values
 
 
@@ -51,8 +45,7 @@ def times(conf):
         return default
 
     default_labels = list(default.keys()).copy()
-    a, b = get_greater(default_labels, conf)
-    return dict(zl(a, b, fillvalue=list(default.values())))
+    return dict(zl(default_labels, conf, fillvalue=list(default.values())))
 
 
 class Notify():
