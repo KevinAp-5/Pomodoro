@@ -207,8 +207,6 @@ def run_normal_config(config):
         notifi.send_notification()
         notifi.time = time
         interval(title)
-    counter.add()
-    counter.show()
 
 
 def run_long_config(config):
@@ -236,6 +234,8 @@ if __name__ == '__main__':
     for _ in range(3):
         show_config(config)
         run_normal_config(config)
+        counter.add()
+        counter.show()
         print('-'*50)
 
     show_config(long_config)
