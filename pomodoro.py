@@ -211,6 +211,21 @@ def run_normal_config(config):
     counter.show()
 
 
+def run_long_config(config):
+    notifi.time = config.get('long rest')
+    for title, time in config.items():
+        print(banner(title))
+        time_counter(title, time)
+        print()
+
+        if title == 'long rest':
+            notifi.done()
+        else:
+            notifi.title = title
+            notifi.send_notification()
+        interval(title)
+
+
 if __name__ == '__main__':
     config = times(get_argv())
 
