@@ -228,37 +228,16 @@ def run_long_config(config):
 
 if __name__ == '__main__':
     config = times(get_argv())
+    notifi = Notify()
+    counter = Counter()
+    long_config = config_extractor(config)
+    config.pop('long rest')
 
+    for _ in range(3):
+        show_config(config)
+        run_normal_config(config)
+        print('-'*50)
 
     show_config(long_config)
     run_long_config(long_config)
 
-
-    notifi = Notify()
-    for sets in range(4):
-        if sets == 3:
-            config['rest'] = 15
-        show_config(config)
-
-        notifi.time = config.get('rest')
-        for title, time in config.items():
-            print(banner(title))
-            notifi.title = title
-            time_counter(title, time)
-            print()
-
-            if sets == 3 and 'rest' in title:
-                notifi.done()
-            else:
-                notifi.send_notification()
-
-            notifi.time = time
-            interval(title)
-            print()
-
-        if sets == 3:
-            print('Pomodoro is done!')
-        else:
-            print(f'Counter: {sets+1}')
-
-    print('-'*50)
