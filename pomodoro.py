@@ -28,14 +28,11 @@ def zl(a, b, fillvalue=None):  # My zip longest
 def get_argv():
     conf = [x.strip() for x in argv[1:]]  # Get argv stripped
 
-    # will convert the strings to numbers
-    for index in range(len(conf)):
-        if conf[index].isdigit():
-            conf[index] = int(conf[index])
-        else:  # float number in string format will return false in isdigit()
-            with suppress(ValueError):
-                conf[index] = int(float(conf[index]))
-    return conf[:3]  # prevent random texts in argv
+    if conf == []:
+        return conf
+    else:
+        conf = [int(float(item)) for item in conf]
+        return conf[:3]
 
 
 def times(conf):
