@@ -178,9 +178,6 @@ class Counter():
     def show(self):
         print(f'Counter: {self.counter}')
 
-    def __repr__(self):
-        return self.counter
-
     def __str__(self):
         return f'Counter: {self.counter}'
 
