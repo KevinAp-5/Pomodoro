@@ -41,8 +41,7 @@ def times(conf):
     if conf == [] or conf == list(default.values()):
         return default
 
-    default_labels = list(default.keys()).copy()
-    return dict(zl(default_labels, conf, fillvalue=list(default.values())))
+    return dict(zl(list(default), conf, fillvalue=list(default.values())))
 
 
 class Notify():
