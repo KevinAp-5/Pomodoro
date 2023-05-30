@@ -105,9 +105,8 @@ def beauty_print(clock):
 
 
 def time_counter(title, time):
-    seconds = (time*60) + 1
-    for second in range(seconds):
-        clock = make_clock(seconds-1)
+    for second in range((time*60), 0, -1):
+        clock = make_clock(second)
         beauty_print(clock)
 
         try:
@@ -115,9 +114,7 @@ def time_counter(title, time):
         except KeyboardInterrupt:
             if keyboardinterrupt() == 'kill':
                 break
-            print('\n', banner(title), sep='')
-        else:
-            seconds -= 1
+            print(f'\n{banner(title)}')
 
 
 def show_config(config):
