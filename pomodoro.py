@@ -221,11 +221,14 @@ if __name__ == '__main__':
     config = times(get_argv())
     notifi = Notify()
     counter = Counter()
+
     long_config = config_extractor(config)
+    show_config(config)
     config.pop('long rest')
 
-    for _ in range(3):
-        show_config(config)
+    for i in range(3):
+        if i > 0:
+            show_config(config)
         run_normal_config(config)
         counter.add()
         counter.show()
