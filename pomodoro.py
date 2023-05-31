@@ -121,14 +121,12 @@ def show_config(config):
 def keyboardinterrupt():
     while True:
         try:
-            resume_pomodoro = input('\nDo you want to continue? [Y/n]\n>>> ')
+            text = '\nDo you want to continue? [Y/n]\n>>> '
+            resume_pomodoro = input(text).strip().lower()[0]
         except KeyboardInterrupt:
             exit()
-        else:
-            try:
-                resume_pomodoro = (resume_pomodoro.strip().lower())[0]
-            except IndexError:
-                continue
+        except IndexError:
+            continue
 
         if resume_pomodoro == 'y':
             break
