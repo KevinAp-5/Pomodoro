@@ -26,13 +26,8 @@ def zl(a, b, fillvalue=None):  # My zip longest
 
 
 def get_argv():
-    conf = [x.strip() for x in argv[1:]]  # Get argv stripped
-
-    if conf == []:
-        return conf
-    else:
-        conf = [int(float(item)) for item in conf]
-        return conf[:3]
+    conf = [int(float(item.strip())) for item in argv[1:]]
+    return conf[:3]
 
 
 def times(conf):
