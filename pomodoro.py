@@ -153,10 +153,9 @@ def interval(title):
 
 
 def config_extractor(config):
-    long_config = {
-        'work': config.get('work'),
-        'long rest': config.get('long rest')
-    }
+    long_config = config.copy()
+    long_config.pop('rest')
+
     return long_config
 
 
