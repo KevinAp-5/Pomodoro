@@ -157,20 +157,6 @@ def config_extractor(config):
     return long_config
 
 
-class Counter():
-    def __init__(self):
-        self.counter = 0
-
-    def add(self):
-        self.counter += 1
-
-    def show(self):
-        print(f'Counter: {self.counter}')
-
-    def __str__(self):
-        return f'Counter: {self.counter}'
-
-
 def run_normal_config(config):
     notifi.time = config.get('rest')
     for title, time in config.items():
@@ -202,7 +188,6 @@ def run_long_config(config):
 if __name__ == '__main__':
     config = times(get_argv())
     notifi = Notify()
-    counter = Counter()
 
     long_config = config_extractor(config)
     show_config(config)
@@ -212,8 +197,7 @@ if __name__ == '__main__':
         if i > 0:
             show_config(config)
         run_normal_config(config)
-        counter.add()
-        counter.show()
+        print(f'Counter: {i+1}')
         print('-'*50)
 
     show_config(long_config)
