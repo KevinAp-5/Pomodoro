@@ -40,9 +40,9 @@ def times(conf):
 
 
 class Notify():
-    def __init__(self, title='', time=0):
-        self.title = title
-        self.time = time
+    def __init__(self):
+        self.title = ''
+        self.time = 0
 
     def send_notification(self):
         self.playbell()
@@ -89,7 +89,7 @@ def return_terminal_size():
     return terminal_size
 
 
-def banner(title):  # return a banner
+def banner(title):
     size = return_terminal_size()
     return f'{"="*size}\n{title.title().center(size)}\n{"="*size}'
 
