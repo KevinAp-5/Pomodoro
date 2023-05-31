@@ -107,7 +107,7 @@ def time_counter(title, time):
         try:
             sleep(1)
         except KeyboardInterrupt:
-            if keyboardinterrupt() == 'kill':
+            if keyboardinterrupt():
                 break
             print(f'\n{banner(title)}')
 
@@ -133,7 +133,7 @@ def keyboardinterrupt():
         elif resume_pomodoro == 'n':
             exit()
         elif resume_pomodoro == 'k':
-            return 'kill'
+            return True
         else:
             print('Invalid answer! Use Yes or No.')
             continue
