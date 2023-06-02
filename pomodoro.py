@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 
-from contextlib import suppress
-from time import sleep, strftime, gmtime
-from sys import argv, platform
-from os import get_terminal_size, path
-
-# Dependencies
-from plyer import notification
-from playsound import playsound
+from time import sleep
+from notify import Notify
+from sysinfo import make_clock, return_terminal_size
 
 
 def zl(a, b, fillvalue=None):  # My zip longest
@@ -25,11 +20,6 @@ def zl(a, b, fillvalue=None):  # My zip longest
     return values
 
 
-def get_argv():
-    conf = [int(float(item.strip())) for item in argv[1:]]
-    return conf[:3]
-
-
 def times(conf):
     default = {'work': 25, 'rest': 5, 'long rest': 15}
 
@@ -37,56 +27,6 @@ def times(conf):
         return default
 
     return dict(zl(list(default), conf, fillvalue=list(default.values())))
-
-
-class Notify():
-    def __init__(self):
-        self.title = ''
-        self.time = 0
-
-    def send_notification(self):
-        self.playbell()
-        notification.notify(  # Pop up notification
-            title=f'{self.title.title()} is done!',
-            message=f'{self.time}:00 minutes is about to run.',
-            app_name='Pomodoro',
-            timeout=10
-        )
-
-    def done(self):
-        notification.notify(
-            title='Pomodoro cicle is done!',
-            message="Congratulations",
-            app_name='Pomodoro',
-            timeout=10
-        )
-
-    def playbell(self):
-        if 'win' in platform:
-            playsound(whereami()+'\\sounds\\sound.mp3')
-        else:
-            playsound(whereami()+'/sounds/sound.mp3')
-
-
-def make_clock(time):
-    return str(strftime('%M:%S', gmtime(int(time))))
-
-
-def whereami(index=1) -> str:
-    """Return the path of where the python script is running at"""
-    with suppress():
-        if 'win' in platform:
-            return "\\".join(path.realpath(__file__).split('\\')[:-index])
-        else:
-            return '/'.join(path.realpath(__file__).split('/')[:-index])
-
-
-def return_terminal_size():
-    try:
-        terminal_size = get_terminal_size()[0]
-    except OSError:  # it may rise if you're not running it on terminal
-        terminal_size = 30
-    return terminal_size
 
 
 def banner(title):
@@ -158,6 +98,7 @@ def config_extractor(config):
 
 
 def run_normal_config(config):
+    notifi = Notify()
     notifi.time = config.get('rest')
     for title, time in config.items():
         print(banner(title))
@@ -171,6 +112,7 @@ def run_normal_config(config):
 
 
 def run_long_config(config):
+    notifi = Notify()
     notifi.time = config.get('long rest')
     for title, time in config.items():
         print(banner(title))
@@ -183,26 +125,3 @@ def run_long_config(config):
             notifi.title = title
             notifi.send_notification()
         interval(title)
-
-
-if __name__ == '__main__':
-    config = times(get_argv())
-    notifi = Notify()
-
-    long_config = config_extractor(config)
-    show_config(config)
-    config.pop('long rest')
-
-    for i in range(3):
-        if i > 0:
-            show_config(config)
-        run_normal_config(config)
-        print(f'Counter: {i+1}')
-        print('-'*50)
-
-    show_config(long_config)
-    run_long_config(long_config)
-
-    print('\nPomodoro is done!')
-    print('-' * 50)
-
