@@ -97,31 +97,25 @@ def config_extractor(config):
     return long_config
 
 
-def run_normal_config(config):
-    notifi = Notify()
-    notifi.time = config.get('rest')
-    for title, time in config.items():
-        print(banner(title))
-        time_counter(title, time)
-        print()
+def notification_check(notifi, *args):
+    title, time = args[0], args[1]
 
+    if title == 'long rest':
+        notifi.done()
+    else:
         notifi.title = title
         notifi.send_notification()
         notifi.time = time
-        interval(title)
 
 
-def run_long_config(config):
+def run_configs(config):
     notifi = Notify()
-    notifi.time = config.get('long rest')
+    notifi.time = list(config.items())[-1][1]
+
     for title, time in config.items():
         print(banner(title))
         time_counter(title, time)
         print()
 
-        if title == 'long rest':
-            notifi.done()
-        else:
-            notifi.title = title
-            notifi.send_notification()
+        notification_check(notifi, title, time)
         interval(title)
