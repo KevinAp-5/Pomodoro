@@ -106,8 +106,7 @@ def notification_check(notifi, title, time):
 
 
 def run_configs(config):
-    notifi = Notify()
-    notifi.time = list(config.items())[-1][1]
+    notifi = Notify(title=list(config.items())[-1][1])
 
     for title, time in config.items():
         print(banner(title))
