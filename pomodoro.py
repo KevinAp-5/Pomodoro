@@ -93,13 +93,10 @@ def interval(title):
 def config_extractor(config):
     long_config = config.copy()
     long_config.pop('rest')
-
     return long_config
 
 
-def notification_check(notifi, *args):
-    title, time = args[0], args[1]
-
+def notification_check(notifi, title, time):
     if title == 'long rest':
         notifi.done()
     else:
