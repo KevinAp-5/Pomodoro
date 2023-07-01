@@ -5,9 +5,9 @@ from sys import platform
 
 
 class Notify():
-    def __init__(self):
-        self.title = ''
-        self.time = 0
+    def __init__(self, title='', time=0):
+        self.title = title
+        self.time = time
 
     def send_notification(self):
         self.playbell()
