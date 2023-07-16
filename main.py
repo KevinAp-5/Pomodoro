@@ -3,10 +3,12 @@ from sysinfo import get_argv
 from os import get_terminal_size
 
 
+def print_line():
+    size = int(get_terminal_size()[0]*0.75)
+    print('-'*size)
+
+
 def main():
-    def print_line():
-        size = int(get_terminal_size()[0]*0.75)
-        print('-'*size)
 
     config = times(get_argv())
 
