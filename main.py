@@ -8,10 +8,11 @@ def print_line():
     print('-'*size)
 
 
+def config():
+    return times(get_argv())
+
+
 def main():
-
-    config = times(get_argv())
-
     long_config = config_extractor(config)
     show_config(config)
     config.pop('long rest')
