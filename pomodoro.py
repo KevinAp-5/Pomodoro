@@ -52,10 +52,16 @@ def time_counter(title, time):
             print(f'\n{banner(title)}')
 
 
-def show_config(config):
+def show_config(config, toreturn=False):
+    config_list = list()
     for x, y in config.items():
-        print(f'{x.title()}: {make_clock(y*60)}', end=' ')
-    print()
+        config_list.append(f'{x.title()}: {make_clock(y*60)}')
+
+    if toreturn:
+        return ' | '.join(config_list)
+    else:
+        print(*config_list, sep=' ')
+        print()
 
 
 def keyboardinterrupt():
