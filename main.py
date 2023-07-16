@@ -33,18 +33,17 @@ def config():
     return times(get_argv())
 
 
-def main():
-    long_config = config_extractor(config)
-    show_config(config)
+def run_clocks(config):
     config.pop('long rest')
 
     for i in range(3):
-        if i > 0:
-            show_config(config)
+        print(f'Stage {i+1}')
+        show_config(config)
         run_configs(config)
-        print(f'Counter: {i+1}')
         print_line()
 
+    print('Stage 4')
+    long_config = config_extractor(config)
     show_config(long_config)
     run_configs(long_config)
 
@@ -53,4 +52,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    myconfig = config()
+    begin(myconfig)
+    run_clocks(myconfig)
