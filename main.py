@@ -1,6 +1,11 @@
-from pomodoro import times, config_extractor, show_config, run_configs
+from pomodoro import times, config_extractor, show_config, run_configs, banner
 from sysinfo import get_argv
 from os import get_terminal_size
+
+
+def begin(config):
+    print(banner('Pomodoro Clock'))
+    print(f'{show_config(config, True)}'.center(get_terminal_size()[0]))
 
 
 def print_line():
