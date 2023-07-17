@@ -7,16 +7,15 @@ from sysinfo import make_clock, return_terminal_size
 
 def zl(a, b, fillvalue=None):  # My zip longest
     values = []
+    for item_x, item_y in zip(a, b):
+        values.append([item_x, item_y])
 
-    for index, item in enumerate(a):
-        try:
-            values.append([item, b[index]])
-        except Exception:
-            fill = fillvalue[index]
-            try:
-                values.append([item, fill])
-            except IndexError:
-                values.append(item, fill[-1])
+    remaining_items = a[len(b):]
+
+    zl.counter = len(b)
+    for remaining_item in remaining_items:
+        values.append([remaining_item, fillvalue[zl.counter]])
+        zl.counter += 1
     return values
 
 
