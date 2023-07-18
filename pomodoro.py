@@ -12,10 +12,8 @@ def zl(a, b, fillvalue=None):  # My zip longest
 
     remaining_items = a[len(b):]
 
-    zl.counter = len(b)
-    for remaining_item in remaining_items:
-        values.append([remaining_item, fillvalue[zl.counter]])
-        zl.counter += 1
+    for counter, remaining_item in enumerate(remaining_items, start=len(b)):
+        values.append([remaining_item, fillvalue[counter]])
     return values
 
 
