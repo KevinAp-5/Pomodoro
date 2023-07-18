@@ -49,12 +49,12 @@ def time_counter(title, time):
             print(f'\n{banner(title)}')
 
 
-def show_config(config, toreturn=False):
+def show_config(config, returnable=False):
     config_list = list()
     for x, y in config.items():
         config_list.append(f'{x.title()}: {make_clock(y*60)}')
 
-    if toreturn:
+    if returnable:
         return ' | '.join(config_list)
     else:
         print(*config_list, sep=' ')
