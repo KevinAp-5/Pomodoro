@@ -5,7 +5,7 @@ from notify import Notify
 from sysinfo import make_clock, return_terminal_size
 
 
-def zl(a, b, fillvalue=None):  # My zip longest
+def zl(a, b, fillvalues=None):  # My zip longest
     values = []
     for item_x, item_y in zip(a, b):
         values.append([item_x, item_y])
@@ -13,7 +13,7 @@ def zl(a, b, fillvalue=None):  # My zip longest
     remaining_items = a[len(b):]
 
     for counter, remaining_item in enumerate(remaining_items, start=len(b)):
-        values.append([remaining_item, fillvalue[counter]])
+        values.append([remaining_item, fillvalues[counter]])
     return values
 
 
@@ -23,7 +23,7 @@ def times(conf):
     if conf == [] or conf == list(default.values()):
         return default
 
-    return dict(zl(list(default), conf, fillvalue=list(default.values())))
+    return dict(zl(list(default), conf, fillvalues=list(default.values())))
 
 
 def banner(title):
