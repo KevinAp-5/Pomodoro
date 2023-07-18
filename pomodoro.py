@@ -7,8 +7,8 @@ from sysinfo import make_clock, return_terminal_size
 
 def zl(a, b, fillvalues=None):  # My zip longest
     values = []
-    for item_x, item_y in zip(a, b):
-        values.append([item_x, item_y])
+    for item_a, item_b in zip(a, b):
+        values.append([item_a, item_b])
 
     remaining_items = a[len(b):]
 
