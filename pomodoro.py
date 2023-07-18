@@ -17,13 +17,13 @@ def zl(a, b, fillvalues=None):  # My zip longest
     return values
 
 
-def times(conf):
+def times(config):
     default = {'work': 25, 'rest': 5, 'long rest': 15}
 
-    if conf == [] or conf == list(default.values()):
+    if config == [] or config == list(default.values()):
         return default
 
-    return dict(zl(list(default), conf, fillvalues=list(default.values())))
+    return dict(zl(list(default), config, fillvalues=list(default.values())))
 
 
 def banner(title):
