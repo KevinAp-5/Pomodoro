@@ -130,3 +130,10 @@ def show_time(total_time_output):
             print('{}ed\t    -> {:>7}:00'.format(key.title(), minutes))
         else:
             print('{}  -> {:>7}:00'.format(key, minutes))
+
+
+def exec_time(func):
+    start = time()
+    func()
+    end = time()
+    return end - start
