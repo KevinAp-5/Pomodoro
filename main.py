@@ -51,10 +51,9 @@ def run_clocks(config):
         run_configs(config)
         print_line()
 
-    print('\nPomodoro is done!')
-
 
 if __name__ == '__main__':
     myconfig = config()
     start(myconfig)
     run_clocks(myconfig)
+    print('\nPomodoro is done!')
