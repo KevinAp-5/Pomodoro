@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from time import sleep
+from time import sleep, time
 from notify import Notify
 from sysinfo import make_clock, terminal_size
 from keyboard import Keyboard
@@ -99,15 +99,15 @@ def notification_check(notifi, title, time):
 
 def run_configs(config):
     notifi = Notify(time=list(config.items())[-1][1])
-    for title, time in config.items():
+    for title, clocks in config.items():
         print(banner(title))
         while True:
-            if not time_counter(title, time):
+            if not time_counter(title, clocks):
                 break  # Kill the actual clock
             # restart the clock
         print()
 
-        notification_check(notifi, title, time)
+        notification_check(notifi, title, clocks)
         interval(title)
 
 
