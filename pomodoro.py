@@ -109,3 +109,16 @@ def run_configs(config):
 
         notification_check(notifi, title, time)
         interval(title)
+
+
+def total_time(config):
+    long_rest = list(config_extractor(config).values())[::-1][0]
+
+    config.popitem()
+    config = list(config.items())
+
+    total_time = {x: y*3 for x, y in config}
+    total_time['rest'] += long_rest
+    total_time.update({'Total time': sum(total_time.values())})
+
+    return total_time
