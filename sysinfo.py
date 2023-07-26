@@ -17,7 +17,7 @@ def make_clock(time):
     return str(strftime('%M:%S', gmtime(int(time))))
 
 
-def return_terminal_size():
+def terminal_size():
     try:
         terminal_size = get_terminal_size()[0]
     except OSError:  # it may rise if you're not running it on terminal

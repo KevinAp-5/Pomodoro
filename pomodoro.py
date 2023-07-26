@@ -2,7 +2,7 @@
 
 from time import sleep
 from notify import Notify
-from sysinfo import make_clock, return_terminal_size
+from sysinfo import make_clock, terminal_size
 from keyboard import Keyboard
 
 
@@ -28,12 +28,12 @@ def times(config):
 
 
 def banner(title):
-    size = return_terminal_size()
+    size = terminal_size()
     return f'{"="*size}\n{title.title().center(size)}\n{"="*size}'
 
 
 def beauty_print(clock):
-    clock = ' '*int((return_terminal_size()/2) - (len(clock)/2)) + clock
+    clock = ' '*int((terminal_size()/2) - (len(clock)/2)) + clock
     print(f'\r{clock}\t', flush=True, end='')
 
 
