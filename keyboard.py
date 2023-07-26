@@ -13,3 +13,8 @@ class Get_input():
 
             if self.text:
                 return self.text
+
+
+class Keyboard():
+    def __init__(self):
+        self.user_input = Get_input()
