@@ -4,6 +4,10 @@ from os import get_terminal_size
 from time import sleep
 
 
+def terminal_size():
+    return get_terminal_size()[0]
+
+
 def nice_line():
     tms = get_terminal_size()[0]
     line = '-' * int(tms*0.60)
