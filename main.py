@@ -21,9 +21,9 @@ def nice_line():
             pass
 
 
-def begin(config):
+def start(config):
     print(banner('Pomodoro Clock'))
-    print(f'{show_config(config, True)}'.center(get_terminal_size()[0]))
+    print(f'{show_config(config, True)}'.center(terminal_size()))
     nice_line()
 
 
