@@ -28,7 +28,7 @@ def start(config):
 
 
 def print_line():
-    size = int(get_terminal_size()[0]*0.75)
+    size = int(terminal_size()*0.75)
     print('-'*size)
 
 
