@@ -99,14 +99,12 @@ def notification_check(notifi, title, time):
 
 def run_configs(config):
     notifi = Notify(time=list(config.items())[-1][1])
-
     for title, time in config.items():
         print(banner(title))
         while True:
-            if time_counter(title, time):
-                continue
-            else:
-                break
+            if not time_counter(title, time):
+                break  # Kill the actual clock
+            # restart the clock
         print()
 
         notification_check(notifi, title, time)
