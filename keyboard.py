@@ -18,3 +18,23 @@ class Get_input():
 class Keyboard():
     def __init__(self):
         self.user_input = Get_input()
+
+    def treat_input(self):
+        while True:
+            resume_pomodoro = self.user_input.get_answer()
+            if resume_pomodoro == 'y':
+                print('Continuing.')
+                break
+            elif resume_pomodoro == 'n':
+                print('\nBye!')
+                exit()
+            elif resume_pomodoro == 'k':
+                print('Killed.')
+                return True
+            elif resume_pomodoro == 'r':
+                print('Restarted')
+                return False
+            else:
+                print('Invalid answer! Use Yes or No.')
+                continue
+        self.reset()
