@@ -44,9 +44,9 @@ def show_config(config, returnable=False):
 
     if returnable:
         return ' | '.join(config_list)
-    else:
-        print(*config_list, sep=' ')
-        print()
+
+    print(*config_list, sep=' ')
+    print()
 
 
 def keyboard_input(title):
