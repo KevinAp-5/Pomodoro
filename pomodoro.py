@@ -49,25 +49,26 @@ def show_config(config, returnable=False):
         print()
 
 
-def keyboardinterrupt():
-    while True:
-        try:
-            text = '\nDo you want to continue? [Y/n]\n>>> '
-            resume_pomodoro = input(text).strip().lower()[0]
-        except KeyboardInterrupt:
-            exit()
-        except IndexError:
-            continue
+def keyboard_input(title):
+    keyboard_signal = Keyboard().treat_input()
 
-        if resume_pomodoro == 'y':
-            break
-        elif resume_pomodoro == 'n':
-            exit()
-        elif resume_pomodoro == 'k':
-            return True
-        else:
-            print('Invalid answer! Use Yes or No.')
-            continue
+    if keyboard_signal:  # Should kill the clock
+        return True
+    print(f'\n{banner(title)}')
+
+
+def time_counter(title, time):
+    seconds = time * 60
+    while seconds > 0:
+        beauty_print(make_clock(seconds))
+        try:
+            sleep(1)
+        except KeyboardInterrupt:
+            if keyboard_input(title):
+                break
+            else:
+                return True
+        seconds -= 1
 
 
 def interval(title):
