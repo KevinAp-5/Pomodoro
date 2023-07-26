@@ -9,15 +9,14 @@ def terminal_size():
 
 
 def nice_line():
-    tms = get_terminal_size()[0]
-    line = '-' * int(tms*0.60)
-    white_space = ' ' * int((tms/2) - (len(line)/2))
+    line = '-' * int(terminal_size()*0.60)
+    white_space = ' ' * int((terminal_size()/2) - (len(line)/2))
     line = f'{white_space}{line}{white_space}\n'
 
     for item in line:
         print(item, end='', flush=True)
         try:
-            sleep(0.03)
+            sleep(0.02)
         except KeyboardInterrupt:
             pass
 
