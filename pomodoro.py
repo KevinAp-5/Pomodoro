@@ -102,7 +102,11 @@ def run_configs(config):
 
     for title, time in config.items():
         print(banner(title))
-        time_counter(title, time)
+        while True:
+            if time_counter(title, time):
+                continue
+            else:
+                break
         print()
 
         notification_check(notifi, title, time)
