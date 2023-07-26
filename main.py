@@ -38,7 +38,7 @@ def config():
 
 def run_clocks(config):
     long_config = config_extractor(config)
-    config.pop('long rest')
+    config.popitem()
 
     for counter, _ in enumerate(range(4), start=1):
         if counter == 4:
