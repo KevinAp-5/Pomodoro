@@ -3,6 +3,7 @@
 from time import sleep
 from notify import Notify
 from sysinfo import make_clock, return_terminal_size
+from keyboard import Keyboard
 
 
 def zl(a, b, fillvalues=None):  # My zip longest
