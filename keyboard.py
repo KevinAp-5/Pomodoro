@@ -38,3 +38,6 @@ class Keyboard():
                 print('Invalid answer! Use Yes or No.')
                 continue
         self.reset()
+
+    def reset(self):
+        self.user_input = Get_input()
