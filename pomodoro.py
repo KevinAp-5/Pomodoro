@@ -122,3 +122,12 @@ def total_time(config):
     total_time.update({'Total time': sum(total_time.values())})
 
     return total_time
+
+
+def show_times(total_time_output):
+    for key, minutes in total_time_output.items():
+        if key != 'Total time':
+            print('{}ed\t    -> {:>7}:00'.format(key.title(), minutes))
+        else:
+            print('{}  -> {:>7}:00'.format(key, minutes))
+
