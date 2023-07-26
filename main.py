@@ -37,21 +37,21 @@ def config():
 
 
 def run_clocks(config):
+    long_config = config_extractor(config)
     config.pop('long rest')
 
-    for i in range(3):
-        print(f'Stage {i+1}')
+    for counter, _ in enumerate(range(4), start=1):
+        if counter == 4:
+            config = long_config
+            print(f'Stage {counter} - Final')
+        else:
+            print(f'Stage {counter}')
+
         show_config(config)
         run_configs(config)
         print_line()
 
-    print('Stage 4')
-    long_config = config_extractor(config)
-    show_config(long_config)
-    run_configs(long_config)
-
     print('\nPomodoro is done!')
-    print_line()
 
 
 if __name__ == '__main__':
