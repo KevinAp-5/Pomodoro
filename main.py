@@ -56,5 +56,5 @@ def run_clocks(config):
 
 if __name__ == '__main__':
     myconfig = config()
-    begin(myconfig)
+    start(myconfig)
     run_clocks(myconfig)
