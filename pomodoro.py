@@ -37,19 +37,6 @@ def beauty_print(clock):
     print(f'\r{clock}\t', flush=True, end='')
 
 
-def time_counter(title, time):
-    for second in range((time*60), 0, -1):
-        clock = make_clock(second)
-        beauty_print(clock)
-
-        try:
-            sleep(1)
-        except KeyboardInterrupt:
-            if keyboardinterrupt():
-                break
-            print(f'\n{banner(title)}')
-
-
 def show_config(config, returnable=False):
     config_list = list()
     for x, y in config.items():
