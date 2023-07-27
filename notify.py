@@ -15,7 +15,7 @@ class Notify():
             title=f'{self.title.title()} is done!',
             message=f'{self.time}:00 minutes is about to run.',
             app_name='Pomodoro',
-            timeout=10
+            timeout=6
         )
 
     def done(self):
@@ -23,7 +23,7 @@ class Notify():
             title='Pomodoro cicle is done!',
             message="Congratulations",
             app_name='Pomodoro',
-            timeout=10
+            timeout=6
         )
 
     def playbell(self):
