@@ -53,10 +53,14 @@ def run_clocks(config):
         print_line()
 
 
-if __name__ == '__main__':
+def main():
     myconfig = config()
     pomodoro_stats = total_time(myconfig.copy())
     start(myconfig)
     run_clocks(myconfig)
     show_time(pomodoro_stats)
+
+
+if __name__ == '__main__':
+    main()
     print('\nPomodoro is done!')
