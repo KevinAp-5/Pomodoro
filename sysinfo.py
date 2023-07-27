@@ -13,8 +13,13 @@ def whereami(index=1) -> str:
             return '/'.join(path.realpath(__file__).split('/')[:-index])
 
 
-def make_clock(time):
-    return str(strftime('%M:%S', gmtime(int(time))))
+def make_clock(time, time_format=None):
+    if time_format:
+        time_format = '%H:%M:%S'
+    else:
+        time_format = '%M:%S'
+
+    return str(strftime(time_format, gmtime(int(time))))
 
 
 def terminal_size():
