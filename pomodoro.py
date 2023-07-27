@@ -126,10 +126,10 @@ def total_time(config):
 
 def show_time(total_time_output):
     for key, minutes in total_time_output.items():
-        if key != 'Total time':
-            print('{}ed\t    -> {:>7}:00'.format(key.title(), minutes))
-        else:
-            print('{}  -> {:>7}:00'.format(key, minutes))
+        key = key+'ed' if key != 'Total time' else key
+
+        clock = make_clock(minutes*60, True)
+        print('{:<12} {:^}{:>10}'.format(key.title(), '->', clock))
 
 
 def exec_time(func):
