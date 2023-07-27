@@ -60,7 +60,7 @@ def keyboard_input(title):
 def time_counter(title, time):
     seconds = time * 60
     while seconds > 0:
-        beauty_print(make_clock(seconds))
+        beauty_print(make_clock(seconds-1))
         try:
             sleep(1)
         except KeyboardInterrupt:
