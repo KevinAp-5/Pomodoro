@@ -1,12 +1,8 @@
 from pomodoro import times, config_extractor, show_config, run_configs, banner
 from pomodoro import total_time, show_time, exec_time
-from sysinfo import get_argv
+from sysinfo import get_argv, terminal_size
 from os import get_terminal_size
 from time import sleep
-
-
-def terminal_size():
-    return get_terminal_size()[0]
 
 
 def nice_line():
