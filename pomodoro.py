@@ -105,9 +105,11 @@ def run_configs(config):
     for title, clocks in config.items():
         print(banner(title))
         while True:
-            if not time_counter(title, clocks):
-                break  # Kill the actual clock
-            # restart the clock
+            should_kill = time_counter(title, clocks)
+            if should_kill is True:
+                break
+            else:
+                continue
         print()
 
         notification_check(notifi, title, clocks)
