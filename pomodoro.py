@@ -51,10 +51,10 @@ def show_config(config, returnable=False):
 
 def keyboard_input(title):
     keyboard_signal = Keyboard().treat_input()
+    if keyboard_signal != 'kill':
+        print(f'\n{banner(title)}')
 
-    if keyboard_signal:  # Should kill the clock
-        return True
-    print(f'\n{banner(title)}')
+    return keyboard_signal
 
 
 def time_counter(title, time):
