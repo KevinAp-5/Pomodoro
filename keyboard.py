@@ -32,7 +32,7 @@ class Keyboard():
                 print('Killed.')
                 return 'kill'
             elif resume_pomodoro == 'r':
-                print('Restarted')
+                print('Restarted.')
                 return False
             else:
                 print('Invalid answer! Use Yes or No.')

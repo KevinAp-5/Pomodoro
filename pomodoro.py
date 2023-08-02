@@ -20,8 +20,9 @@ def zl(a, b, fillvalues=None):  # My zip longest
 
 def times(config):
     default = {'work': 25, 'rest': 5, 'long rest': 15}
+    default_values = list(default.values())
 
-    if config == [] or config == list(default.values()):
+    if config == [] or config == default_values:
         return default
 
     return dict(zl(list(default), config, fillvalues=list(default.values())))
