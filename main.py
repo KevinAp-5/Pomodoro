@@ -15,6 +15,7 @@ def nice_line():
         try:
             sleep(0.02)
         except KeyboardInterrupt:
+            print()
             pass
 
 
