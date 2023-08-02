@@ -64,10 +64,13 @@ def time_counter(title, time):
         try:
             sleep(1)
         except KeyboardInterrupt:
-            if keyboard_input(title):
-                break
-            else:
+            keyboard_out = keyboard_input(title)
+            if keyboard_out == 'kill':
                 return True
+            elif keyboard_out is False:
+                return False
+            else:
+                continue
         seconds -= 1
 
 
