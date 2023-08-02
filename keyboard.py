@@ -36,6 +36,7 @@ class Keyboard():
                 return False
             else:
                 print('Invalid answer! Use Yes or No.')
+                self.reset()
                 continue
         self.reset()
 
