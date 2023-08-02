@@ -15,7 +15,7 @@ def zl(a, b, fillvalues=None):  # My zip longest
 
     for counter, remaining_item in enumerate(remaining_items, start=len(b)):
         values.append([remaining_item, fillvalues[counter]])
-    return values
+    return dict(values)
 
 
 def times(config):
@@ -25,7 +25,7 @@ def times(config):
     if config == [] or config == default_values:
         return default
 
-    return dict(zl(list(default), config, fillvalues=list(default.values())))
+    return zl(list(default), config, fillvalues=default_values)
 
 
 def banner(title):
