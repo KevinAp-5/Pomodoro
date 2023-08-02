@@ -30,7 +30,7 @@ class Keyboard():
                 exit()
             elif resume_pomodoro == 'k':
                 print('Killed.')
-                return True
+                return 'kill'
             elif resume_pomodoro == 'r':
                 print('Restarted')
                 return False
