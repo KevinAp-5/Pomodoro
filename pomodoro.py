@@ -50,31 +50,6 @@ def show_config(config, returnable=False):
     print()
 
 
-def keyboard_input(title):
-    keyboard_signal = Keyboard().treat_input()
-    if keyboard_signal != 'kill':
-        print(f'\n{banner(title)}')
-
-    return keyboard_signal
-
-
-def time_counter(title, time):
-    seconds = time * 60
-    while seconds > 0:
-        beauty_print(make_clock(seconds-1))
-        try:
-            sleep(1)
-        except KeyboardInterrupt:
-            keyboard_out = keyboard_input(title)
-            if keyboard_out == 'kill':
-                return True
-            elif keyboard_out is False:
-                return False
-            else:
-                continue
-        seconds -= 1
-
-
 def interval(title):
     print(f'{title} is done!', end=' ')
     for letter in '.'*10:
@@ -99,6 +74,30 @@ def notification_check(notifi, title, time):
         notifi.title = title
         notifi.send_notification()
         notifi.time = time
+
+
+def keyboard_input(title):
+    keyboard_signal = Keyboard().treat_input()
+    if keyboard_signal != 'kill':
+        print(f'\n{banner(title)}')
+    return keyboard_signal
+
+
+def time_counter(title, time):
+    seconds = time * 60
+    while seconds > 0:
+        beauty_print(make_clock(seconds-1))
+        try:
+            sleep(1)
+        except KeyboardInterrupt:
+            keyboard_out = keyboard_input(title)
+            if keyboard_out == 'kill':
+                return True
+            elif keyboard_out is False:
+                return False
+            else:
+                continue
+        seconds -= 1
 
 
 def run_configs(config):
