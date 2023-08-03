@@ -98,6 +98,7 @@ def time_counter(title, time):
             else:
                 continue
         seconds -= 1
+    return None
 
 
 def run_configs(config):
@@ -106,7 +107,7 @@ def run_configs(config):
         print(banner(title))
         while True:
             should_kill = time_counter(title, clocks)
-            if should_kill is True:
+            if should_kill is True or should_kill is None:
                 break
             else:
                 continue
