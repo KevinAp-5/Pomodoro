@@ -142,7 +142,9 @@ def format_time(title, clock):
 
 
 def exec_time(func):
-    start = time()
-    func()
-    end = time()
-    return end - start
+    def count_time():
+        start = time()
+        func()
+        end = time()
+        return format_time('Exec time', make_clock(int(end - start), True))
+    return count_time
