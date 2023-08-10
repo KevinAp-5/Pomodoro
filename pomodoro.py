@@ -126,7 +126,6 @@ def total_time(config):
     total_time = {x: y*3 for x, y in config}
     total_time['rest'] += long_rest
     total_time.update({'Total time': sum(total_time.values())})
-
     return total_time
 
 
