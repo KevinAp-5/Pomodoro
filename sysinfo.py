@@ -23,11 +23,7 @@ def make_clock(time, time_format=None):
 
 
 def terminal_size():
-    try:
-        terminal_size = get_terminal_size()[0]
-    except OSError:  # it may rise if you're not running it on terminal
-        terminal_size = 30
-    return terminal_size
+    return get_terminal_size()[0]
 
 
 def get_argv():
