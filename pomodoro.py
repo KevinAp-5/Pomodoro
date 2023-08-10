@@ -134,7 +134,11 @@ def show_time(total_time_output):
         key = key+'ed' if key != 'Total time' else key
 
         clock = make_clock(minutes*60, True)
-        print('{:<12} {:^}{:>10}'.format(key.title(), '->', clock))
+        format_time(key.title(), clock)
+
+
+def format_time(title, clock):
+    print('{:<12} {:^}{:>10}'.format(title, '->', clock))
 
 
 def exec_time(func):
