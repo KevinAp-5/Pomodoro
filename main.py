@@ -50,6 +50,7 @@ def run_clocks(config):
         print_line()
 
 
+@exec_time
 def main():
     myconfig = config()
     pomodoro_stats = total_time(myconfig.copy())
