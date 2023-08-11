@@ -1,6 +1,5 @@
 from plyer import notification
 from playsound import playsound
-from sysinfo import whereami
 from sys import platform
 
 
@@ -26,8 +25,6 @@ class Notify():
             timeout=6
         )
 
-    def playbell(self):
-        if 'win' in platform:
-            playsound(whereami()+'\\sounds\\sound.mp3')
-        else:
-            playsound(whereami()+'/sounds/sound.mp3')
+    @staticmethod
+    def playbell():
+        playsound('sounds/sound.mp3')
