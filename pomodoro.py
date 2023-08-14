@@ -69,10 +69,15 @@ def config_extractor(config):
 
 def notification_check(notifi, title, time):
     if title == 'long rest':
-        notifi.done()
+        notifi.send_notification(
+            title='Pomodoro cicle is done!',
+            message="Congratulations",
+        )
     else:
-        notifi.title = title
-        notifi.send_notification()
+        notifi.send_notification(
+            title=f'{title.title()} is done!',
+            message=f'{notifi.time}:00 minutes is about to run.',
+        )
         notifi.time = time
 
 

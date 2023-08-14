@@ -8,21 +8,13 @@ class Notify():
         self.title = title.title()
         self.time = time
 
-    def send_notification(self):
+    def send_notification(self, title, message, timeout=6):
         self.playbell()
-        notification.notify(  # Pop up notification
-            title=f'{self.title.title()} is done!',
-            message=f'{self.time}:00 minutes is about to run.',
-            app_name='Pomodoro',
-            timeout=6
-        )
-
-    def done(self):
         notification.notify(
-            title='Pomodoro cicle is done!',
-            message="Congratulations",
-            app_name='Pomodoro',
-            timeout=6
+            title=title,
+            message=message,
+            timeout=timeout,
+            app_name='Pomodoro'
         )
 
     @staticmethod
