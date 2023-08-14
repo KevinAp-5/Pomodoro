@@ -4,15 +4,6 @@ from time import strftime, gmtime
 from contextlib import suppress
 
 
-def whereami(index=1) -> str:
-    """Return the path of where the python script is running at"""
-    with suppress():
-        if 'win' in platform:
-            return "\\".join(path.realpath(__file__).split('\\')[:-index])
-        else:
-            return '/'.join(path.realpath(__file__).split('/')[:-index])
-
-
 def make_clock(time, time_format=None):
     if time_format:
         time_format = '%H:%M:%S'
