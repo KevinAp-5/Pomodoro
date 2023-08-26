@@ -1,7 +1,7 @@
 from plyer import notification
 from playsound import playsound
 from sys import platform
-
+from os.path import realpath
 
 class Notify():
     def __init__(self, title='', time=0):
@@ -19,4 +19,7 @@ class Notify():
 
     @staticmethod
     def playbell():
-        playsound('sounds/sound.mp3')
+        path = realpath(__file__).split('/')
+        path.pop(-1)
+        path = '/'.join(path)
+        playsound(f'{path}/sounds/sound.mp3')
