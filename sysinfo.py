@@ -4,8 +4,10 @@ from time import strftime, gmtime
 from contextlib import suppress
 
 
-def make_clock(time, time_format=None):
-    if time_format:
+def make_clock(time):
+    time_format = ''
+
+    if time >= 60*60:
         time_format = '%H:%M:%S'
     else:
         time_format = '%M:%S'

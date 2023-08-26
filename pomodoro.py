@@ -138,7 +138,7 @@ def show_time(total_time_output):
     for key, minutes in total_time_output.items():
         key = key+'ed' if key != 'Total time' else key
 
-        format_time(key.title(), make_clock(minutes*60, True))
+        format_time(key.title(), make_clock(minutes*60))
 
 
 def format_time(title, clock):
