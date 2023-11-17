@@ -38,7 +38,7 @@ def run_clocks(config):
     long_config = config_extractor(config)
     config.popitem()
 
-    for counter in range(1, 4):
+    for counter, _ in enumerate(range(4), start=1):
         if counter == 4:
             config = long_config
             print(f'Stage {counter} - Final')
