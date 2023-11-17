@@ -100,6 +100,8 @@ def time_counter(title, time):
                 return True
             elif keyboard_out is False:
                 return False
+            elif type(keyboard_out) == int:
+                seconds = keyboard_out
             else:
                 continue
         seconds -= 1

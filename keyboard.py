@@ -34,6 +34,8 @@ class Keyboard():
             elif resume_pomodoro == 'r':
                 print('Restarted.')
                 return False
+            elif resume_pomodoro == 'g':
+                return self.get_time()
             else:
                 print('Invalid answer! Use Yes or No.')
                 self.reset()
@@ -42,3 +44,15 @@ class Keyboard():
 
     def reset(self):
         self.user_input = Get_input()
+
+    def get_time(self):
+        time = input('What time you stopped at:\n>>> ')
+        if ':' in time:
+            time = [int(x) for x in time.split(':')]
+            seconds = time[1]
+            minutes = time[0]
+            time = (minutes*60) + seconds
+            return time
+        else:
+            return int(time)*60
+
