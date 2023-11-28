@@ -49,8 +49,8 @@ class Keyboard():
         time = input('What time you stopped at:\n>>> ')
         if ':' in time:
             time = [int(x) for x in time.split(':')]
-            seconds = time[1]
             minutes = time[0]
+            seconds = time[1]
             time = (minutes*60) + seconds
             return time
         else:
