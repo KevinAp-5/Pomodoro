@@ -21,25 +21,25 @@ class Keyboard():
 
     def treat_input(self):
         while True:
-            resume_pomodoro = self.user_input.get_answer()
-            if resume_pomodoro == 'y':
-                print('Continuing.')
-                break
-            elif resume_pomodoro == 'n':
-                print('\nBye!')
-                exit()
-            elif resume_pomodoro == 'k':
-                print('Killed.')
-                return 'kill'
-            elif resume_pomodoro == 'r':
-                print('Restarted.')
-                return False
-            elif resume_pomodoro == 'g':
-                return self.get_time()
-            else:
-                print('Invalid answer! Use Yes or No.')
-                self.reset()
-                continue
+            match self.user_input.get_answer():
+                case 'y':  # Yes
+                    print('Continuing.')
+                    break
+                case 'n':  # No
+                    print('\nBye!')
+                    exit()
+                case 'k':  # Kill
+                    print('Killed.')
+                    return 'kill'
+                case 'r':  # Restart
+                    print('Restarted.')
+                    return False
+                case 'g':  # Go to time
+                    return self.get_time()
+                case _:    # Else
+                    print('Invalid answer! Use Yes or No.')
+                    self.reset()
+                    continue
         self.reset()
 
     def reset(self):
