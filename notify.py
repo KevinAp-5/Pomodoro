@@ -2,6 +2,7 @@ from plyer import notification
 from playsound import playsound
 from sys import platform
 from os.path import realpath
+import threading
 
 class Notify():
     def __init__(self, title='', time=0):
@@ -9,7 +10,7 @@ class Notify():
         self.time = time
 
     def send_notification(self, title, message, timeout=6):
-        self.playbell()
+        threading.Thread(target=self.playbell).start()
         notification.notify(
             title=title,
             message=message,
@@ -23,3 +24,4 @@ class Notify():
         path.pop(-1)
         path = '/'.join(path)
         playsound(f'{path}/sounds/sound.mp3')
+
