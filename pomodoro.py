@@ -52,7 +52,7 @@ def show_config(config, returnable=False):
 
 def interval(title):
     print(f'{title} is done!', end=' ')
-    for letter in '.'*10:
+    for letter in '.'*14:
         print(letter, end='', flush=True)
         try:
             sleep(1)
