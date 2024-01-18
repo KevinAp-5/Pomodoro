@@ -16,7 +16,11 @@ def make_clock(time):
 
 
 def terminal_size():
-    return get_terminal_size()[0]
+    terminalSize = get_terminal_size()[0]
+    if (terminalSize > 100):
+        return 100
+    return terminalSize
+    
 
 
 def get_argv():
