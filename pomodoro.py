@@ -152,5 +152,5 @@ def exec_time(func):
         start = time()
         func()
         end = time()
-        return format_time('Exec time', make_clock(int(end - start)-120))
+        return format_time('Start time', make_clock(int(end - start)-120))
     return count_time

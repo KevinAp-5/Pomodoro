@@ -53,6 +53,5 @@ class Keyboard():
             seconds = time[1]
             time = (minutes*60) + seconds
             return time
-        else:
-            return int(time)*60
+        return int(time)*60
 
