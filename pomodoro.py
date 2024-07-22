@@ -130,7 +130,7 @@ def total_time(config):
     config.popitem()
     config = list(config.items())
 
-    total_time = {x: y*3 for x, y in config}
+    total_time = {x: y*4 for x, y in config}
     total_time['rest'] += long_rest
     total_time.update({'Total time': sum(total_time.values())})
     return total_time
@@ -152,5 +152,5 @@ def exec_time(func):
         start = time()
         func()
         end = time()
-        return format_time('Start time', make_clock(int(end - start)-120))
+        return format_time('Start time', make_clock(int(end - start)))
     return count_time
